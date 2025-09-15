@@ -1,0 +1,9 @@
+/* Auth (login/register) scoped styles */
+.auth-page .login-card {
+    max-width: 420px;
+    margin: 5rem auto;
+}
+
+.auth-page .login-header .login-logo i {
+    color: var(--primary-color);
+}

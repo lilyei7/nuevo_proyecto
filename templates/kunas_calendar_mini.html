@@ -1,0 +1,71 @@
+{% comment %}
+CALENDARIO KUNAS MINI - Para Sidebar
+====================================
+Versión simplificada del calendario para mostrar en el sidebar
+{% endcomment %}
+
+<div class="kunas-mini-calendar">
+    <div class="kunas-mini-header">
+        <h6 class="text-white mb-2">
+            <i class="fas fa-calendar-alt me-1"></i>
+            Calendario de Precios
+        </h6>
+    </div>
+    
+    <div class="kunas-mini-content">
+        <div class="text-center text-white-50 small">
+            <div class="mb-2">
+                <i class="fas fa-hotel me-1"></i>
+                Hotel Configurado: PARK INN MAZATLAN
+            </div>
+            <div class="mb-2">
+                <i class="fas fa-calendar-check me-1"></i>
+                Mes Actual: {{ current_month|default:"Septiembre 2025" }}
+            </div>
+            <div class="mb-3">
+                <i class="fas fa-sync-alt me-1"></i>
+                Última Sincronización: {{ last_sync|default:"10/09/2025 20:15" }}
+            </div>
+            
+            <div class="kunas-quick-actions">
+                <button class="btn btn-outline-light btn-sm mb-1" style="font-size: 0.7rem;">
+                    <i class="fas fa-eye me-1"></i>
+                    Ver Calendario
+                </button>
+                <button class="btn btn-outline-success btn-sm" style="font-size: 0.7rem;">
+                    <i class="fas fa-sync-alt me-1"></i>
+                    Sincronizar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.kunas-mini-calendar {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.kunas-mini-header h6 {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.kunas-mini-content .small {
+    font-size: 0.75rem;
+}
+
+.kunas-quick-actions .btn {
+    width: 100%;
+    padding: 4px 8px;
+    font-size: 0.7rem !important;
+}
+
+.kunas-quick-actions .btn:first-child {
+    margin-bottom: 5px;
+}
+</style>

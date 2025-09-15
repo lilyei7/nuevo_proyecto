@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Estado OTASync{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 mb-0">🔗 Estado de OTASync</h1>
+                <button id="test-connection" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i> Probar Conexión
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Estado de Conexión -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">📊 Estado de Conexión</h5>
+                </div>
+                <div class="card-body">
+                    <div id="connection-status">
+                        {% if sync_status.otasync_connected %}
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle"></i> Conectado a OTASync
+                            </div>
+                        {% else %}
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-triangle"></i> Desconectado de OTASync
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row text-center">
+                        <div class="col">
+                            <h4 class="text-primary">{{ sync_status.total_hotels }}</h4>
+                            <small>Total Hoteles</small>
+                        </div>
+                        <div class="col">
+                            <h4 class="text-success">{{ sync_status.otasync_enabled_hotels }}</h4>
+                            <small>OTASync Habilitado</small>
+                        </div>
+                        <div class="col">
+                            <h4 class="text-warning">{{ sync_status.pending_sync_results }}</h4>
+                            <small>Pendientes Sync</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">🏨 Hoteles OTASync</h5>
+                </div>
+                <div class="card-body">
+                    {% if otasync_hotels %}
+                        <div class="list-group">
+                            {% for hotel in otasync_hotels %}
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>{{ hotel.name }}</strong>
+                                    <br>
+                                    <small class="text-muted">
+                                        Property ID: {{ hotel.otasync_property_id|default:"No configurado" }}
+                                    </small>
+                                </div>
+                                <span class="badge badge-success">Activo</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> No hay hoteles configurados con OTASync
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones Rápidas -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">⚡ Acciones Rápidas</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <button id="bulk-sync" class="btn btn-success btn-block">
+                                <i class="fas fa-sync"></i> Sincronización Masiva
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="view-properties" class="btn btn-info btn-block">
+                                <i class="fas fa-building"></i> Ver Propiedades
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/admin/hotels/hotel/" class="btn btn-secondary btn-block">
+                                <i class="fas fa-cog"></i> Configurar Hoteles
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <button id="sync-logs" class="btn btn-outline-primary btn-block">
+                                <i class="fas fa-list"></i> Ver Logs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resultados de Acciones -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div id="action-results" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">📋 Resultados</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="results-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const testConnectionBtn = document.getElementById('test-connection');
+    const bulkSyncBtn = document.getElementById('bulk-sync');
+    const actionResults = document.getElementById('action-results');
+    const resultsContent = document.getElementById('results-content');
+
+    // Probar conexión
+    testConnectionBtn.addEventListener('click', function() {
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Probando...';
+        this.disabled = true;
+
+        fetch('/dashboard/otasync/test-connection/')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showResults('Conexión probada exitosamente', 'success', data);
+                } else {
+                    showResults('Error probando conexión: ' + data.error, 'danger');
+                }
+            })
+            .catch(error => {
+                showResults('Error: ' + error.message, 'danger');
+            })
+            .finally(() => {
+                this.innerHTML = '<i class="fas fa-sync-alt"></i> Probar Conexión';
+                this.disabled = false;
+            });
+    });
+
+    // Sincronización masiva
+    bulkSyncBtn.addEventListener('click', function() {
+        if (!confirm('¿Realizar sincronización masiva con OTASync?')) return;
+
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sincronizando...';
+        this.disabled = true;
+
+        fetch('/dashboard/otasync/bulk-sync/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showResults('Sincronización completada', 'success', data.sync_stats);
+                } else {
+                    showResults('Error en sincronización: ' + data.error, 'danger');
+                }
+            })
+            .catch(error => {
+                showResults('Error: ' + error.message, 'danger');
+            })
+            .finally(() => {
+                this.innerHTML = '<i class="fas fa-sync"></i> Sincronización Masiva';
+                this.disabled = false;
+            });
+    });
+
+    function showResults(message, type, data = null) {
+        let content = `<div class="alert alert-${type}">${message}</div>`;
+        
+        if (data) {
+            content += '<pre class="bg-light p-3">' + JSON.stringify(data, null, 2) + '</pre>';
+        }
+        
+        resultsContent.innerHTML = content;
+        actionResults.style.display = 'block';
+        actionResults.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+</script>
+{% endblock %}

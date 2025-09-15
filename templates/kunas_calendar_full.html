@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Kunas - Sistema de Precios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Tema oscuro personalizado */
+        :root {
+            --kunas-primary: #007bff;
+            --kunas-secondary: #6c757d;
+            --kunas-success: #28a745;
+            --kunas-warning: #ffc107;
+            --kunas-danger: #dc3545;
+            --kunas-dark: #212529;
+            --kunas-light: #f8f9fa;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+        }
+
+        .kunas-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .kunas-calendar-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+        }
+
+        .kunas-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .kunas-month-nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .kunas-nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .kunas-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .kunas-month-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .kunas-property-selector {
+            min-width: 250px;
+        }
+
+        .kunas-calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .kunas-day-header {
+            background: rgba(0, 123, 255, 0.2);
+            color: #007bff;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 123, 255, 0.3);
+        }
+
+        .kunas-day-cell {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kunas-day-cell:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .kunas-day-number {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .kunas-day-price {
+            font-size: 0.9rem;
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .kunas-day-time {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 2px;
+        }
+
+        .kunas-day-cell.today {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .kunas-day-cell.has-data {
+            background: rgba(40, 167, 69, 0.1);
+            border-color: rgba(40, 167, 69, 0.3);
+        }
+
+        .kunas-day-cell.updated-today {
+            background: rgba(220, 53, 69, 0.1);
+            border-color: rgba(220, 53, 69, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .kunas-day-cell.updated-today::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background: #dc3545;
+            border-radius: 50%;
+            animation: blink 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .kunas-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kunas-stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .kunas-stat-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .kunas-stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+            display: block;
+        }
+
+        .kunas-stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .kunas-loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .kunas-loading.active {
+            display: block;
+        }
+
+        .kunas-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .kunas-calendar-grid {
+                gap: 4px;
+            }
+            
+            .kunas-day-cell {
+                min-height: 70px;
+                padding: 8px;
+            }
+            
+            .kunas-day-number {
+                font-size: 1rem;
+            }
+            
+            .kunas-day-price {
+                font-size: 0.8rem;
+            }
+            
+            .kunas-month-title {
+                font-size: 1.5rem;
+                min-width: 150px;
+            }
+            
+            .kunas-controls {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .btn-kunas {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-kunas:hover {
+            background: linear-gradient(45deg, #0056b3, #004085);
+            transform: translateY(-1px);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="kunas-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1><i class="bi bi-calendar3"></i> Calendario Kunas</h1>
+                    <p class="mb-0">Sistema de monitoreo de precios dinámico</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <a href="/dashboard/results/" class="btn btn-kunas">
+                        <i class="bi bi-arrow-left"></i> Volver al Dashboard
+                    </a>
+                    <button class="btn btn-kunas ms-2" onclick="kunasSync()">
+                        <i class="bi bi-arrow-clockwise"></i> Sincronizar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <!-- Estadísticas -->
+        <div class="kunas-stats">
+            <div class="kunas-stat-card">
+                <span class="kunas-stat-value" id="totalDays">{{ calendar_data.total_days|default:0 }}</span>
+                <div class="kunas-stat-label">
+                    <i class="bi bi-calendar-check"></i> Total de días con datos
+                </div>
+            </div>
+            <div class="kunas-stat-card">
+                <span class="kunas-stat-value" id="avgPrice">${{ calendar_data.average_price|default:0|floatformat:0 }}</span>
+                <div class="kunas-stat-label">
+                    <i class="bi bi-graph-up"></i> Precio promedio
+                </div>
+            </div>
+            <div class="kunas-stat-card">
+                <span class="kunas-stat-value" id="todayUpdates">{{ calendar_data.today_updates|default:0 }}</span>
+                <div class="kunas-stat-label">
+                    <i class="bi bi-clock"></i> Actualizaciones hoy
+                </div>
+            </div>
+            <div class="kunas-stat-card">
+                <span class="kunas-stat-value" id="currentProperty">{{ calendar_data.property_name|default:"N/A" }}</span>
+                <div class="kunas-stat-label">
+                    <i class="bi bi-building"></i> Propiedad actual
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendario Principal -->
+        <div class="kunas-calendar-container">
+            <!-- Controles -->
+            <div class="kunas-controls">
+                <div class="kunas-month-nav">
+                    <button class="kunas-nav-btn" onclick="kunasChangeMonth(-1)">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <div class="kunas-month-title" id="currentMonth">
+                        {{ calendar_data.current_month|default:"Septiembre 2025" }}
+                    </div>
+                    <button class="kunas-nav-btn" onclick="kunasChangeMonth(1)">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="kunas-property-selector">
+                    <select class="form-select" id="propertySelect" onchange="kunasChangeProperty()">
+                        <option value="9355">PARK INN MAZATLAN</option>
+                        {% for property in calendar_data.properties %}
+                        <option value="{{ property.id }}">{{ property.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Loading -->
+            <div class="kunas-loading" id="kunasLoading">
+                <div class="kunas-spinner"></div>
+                <p>Cargando datos del calendario...</p>
+            </div>
+
+            <!-- Grid del Calendario -->
+            <div class="kunas-calendar-grid" id="calendarGrid">
+                <!-- Headers -->
+                <div class="kunas-day-header">Dom</div>
+                <div class="kunas-day-header">Lun</div>
+                <div class="kunas-day-header">Mar</div>
+                <div class="kunas-day-header">Mié</div>
+                <div class="kunas-day-header">Jue</div>
+                <div class="kunas-day-header">Vie</div>
+                <div class="kunas-day-header">Sáb</div>
+
+                <!-- Días del mes -->
+                {% for day in calendar_data.days %}
+                <div class="kunas-day-cell {% if day.is_today %}today{% endif %} {% if day.has_data %}has-data{% endif %} {% if day.updated_today %}updated-today{% endif %}"
+                     data-date="{{ day.date }}" onclick="kunasSelectDay('{{ day.date }}')">
+                    <div class="kunas-day-number">{{ day.number }}</div>
+                    {% if day.price %}
+                    <div class="kunas-day-price">${{ day.price }}</div>
+                    {% if day.time %}
+                    <div class="kunas-day-time">{{ day.time }}</div>
+                    {% endif %}
+                    {% endif %}
+                </div>
+                {% empty %}
+                <!-- Días por defecto si no hay datos -->
+                <div class="kunas-day-cell today" data-date="2025-09-09" onclick="kunasSelectDay('2025-09-09')">
+                    <div class="kunas-day-number">9</div>
+                    <div class="kunas-day-price">$2,338</div>
+                    <div class="kunas-day-time">16:45</div>
+                </div>
+                <!-- Agregar más días aquí -->
+                {% for i in "0123456789012345678901234567890123456789"|slice:":35" %}
+                <div class="kunas-day-cell" data-date="2025-09-{{ forloop.counter|add:9 }}">
+                    <div class="kunas-day-number">{{ forloop.counter|add:9 }}</div>
+                </div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para detalles del día -->
+    <div class="modal fade" id="dayModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detalles del día</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="dayModalBody">
+                    <!-- Contenido dinámico -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Estado global del calendario
+        let currentDate = new Date();
+        let currentPropertyId = '9355';
+
+        // Función para cambiar mes
+        function kunasChangeMonth(direction) {
+            showLoading(true);
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            updateCalendar();
+        }
+
+        // Función para cambiar propiedad
+        function kunasChangeProperty() {
+            showLoading(true);
+            currentPropertyId = document.getElementById('propertySelect').value;
+            updateCalendar();
+        }
+
+        // Función para actualizar calendario
+        async function updateCalendar() {
+            try {
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth() + 1;
+                
+                const response = await fetch(`/calendario/api/?year=${year}&month=${month}&property_id=${currentPropertyId}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    updateCalendarView(data);
+                    updateStats(data.statistics);
+                } else {
+                    console.error('Error:', data.error);
+                }
+            } catch (error) {
+                console.error('Error al actualizar calendario:', error);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Función para actualizar la vista del calendario
+        function updateCalendarView(data) {
+            document.getElementById('currentMonth').textContent = data.month_name;
+            
+            const grid = document.getElementById('calendarGrid');
+            // Mantener headers, actualizar solo días
+            const headers = grid.querySelectorAll('.kunas-day-header');
+            grid.innerHTML = '';
+            headers.forEach(header => grid.appendChild(header));
+            
+            // Agregar nuevos días
+            data.days.forEach(day => {
+                const dayElement = createDayElement(day);
+                grid.appendChild(dayElement);
+            });
+        }
+
+        // Función para crear elemento de día
+        function createDayElement(day) {
+            const div = document.createElement('div');
+            div.className = `kunas-day-cell ${day.is_today ? 'today' : ''} ${day.has_data ? 'has-data' : ''} ${day.updated_today ? 'updated-today' : ''}`;
+            div.setAttribute('data-date', day.date);
+            div.onclick = () => kunasSelectDay(day.date);
+            
+            let content = `<div class="kunas-day-number">${day.number}</div>`;
+            if (day.price) {
+                content += `<div class="kunas-day-price">$${day.price}</div>`;
+                content += `<div class="kunas-day-time">${day.time}</div>`;
+            }
+            
+            div.innerHTML = content;
+            return div;
+        }
+
+        // Función para actualizar estadísticas
+        function updateStats(stats) {
+            document.getElementById('totalDays').textContent = stats.total_days || 0;
+            document.getElementById('avgPrice').textContent = `$${stats.average_price || 0}`;
+            document.getElementById('todayUpdates').textContent = stats.today_updates || 0;
+            document.getElementById('currentProperty').textContent = stats.property_name || 'N/A';
+        }
+
+        // Función para mostrar/ocultar loading
+        function showLoading(show) {
+            const loading = document.getElementById('kunasLoading');
+            const grid = document.getElementById('calendarGrid');
+            
+            if (show) {
+                loading.classList.add('active');
+                grid.style.opacity = '0.3';
+            } else {
+                loading.classList.remove('active');
+                grid.style.opacity = '1';
+            }
+        }
+
+        // Función para seleccionar día
+        function kunasSelectDay(date) {
+            console.log('Día seleccionado:', date);
+            // Mostrar modal con detalles
+            showDayDetails(date);
+        }
+
+        // Función para mostrar detalles del día
+        async function showDayDetails(date) {
+            try {
+                const response = await fetch(`/calendario/api/day/${date}/?property_id=${currentPropertyId}`);
+                const data = await response.json();
+                
+                document.getElementById('dayModalBody').innerHTML = `
+                    <h6>Fecha: ${date}</h6>
+                    <p><strong>Precio:</strong> $${data.price || 'No disponible'}</p>
+                    <p><strong>Última actualización:</strong> ${data.last_update || 'N/A'}</p>
+                    <p><strong>Propiedad:</strong> ${data.property_name}</p>
+                `;
+                
+                new bootstrap.Modal(document.getElementById('dayModal')).show();
+            } catch (error) {
+                console.error('Error al cargar detalles del día:', error);
+            }
+        }
+
+        // Función de sincronización
+        async function kunasSync() {
+            const btn = event.target.closest('button');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Sincronizando...';
+            btn.disabled = true;
+            
+            try {
+                const response = await fetch('/calendario/api/sync/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    await updateCalendar();
+                    alert('✅ Sincronización completada');
+                } else {
+                    alert('❌ Error en sincronización: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error de sincronización:', error);
+                alert('❌ Error de conexión');
+            } finally {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }
+        }
+
+        // Función para obtener cookie CSRF
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📅 Calendario Kunas Full inicializado');
+            
+            // Cargar datos iniciales si es necesario
+            if (!{{ calendar_data|yesno:"true,false" }}) {
+                updateCalendar();
+            }
+        });
+
+        // Auto-refresh cada 5 minutos
+        setInterval(() => {
+            console.log('🔄 Auto-refresh calendario...');
+            updateCalendar();
+        }, 300000); // 5 minutos
+    </script>
+</body>
+</html>

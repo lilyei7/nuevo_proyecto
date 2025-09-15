@@ -1,0 +1,39 @@
+# Ejemplo de configuración SSH lista para VSCode Remote-SSH o para pegar en ~/.ssh/config
+# IMPORTANTE: no pongas contraseñas en este archivo. Configura autenticación por clave SSH
+# (recomendado) y añade la clave pública al servidor con `ssh-copy-id`.
+
+# Host usando root (NO recomendado a menos que lo quieras así)
+Host hotel_vps_root
+  HostName 168.231.112.40
+  User root
+  IdentityFile ~/.ssh/id_ed25519
+  IdentitiesOnly yes
+  ServerAliveInterval 60
+  # Opcional: comprueba la ruta a tu llave privada si no es la estándar
+
+# Host usando usuario deploy (RECOMENDADO)
+Host hotel_vps
+  HostName 168.231.112.40
+  User deploy
+  IdentityFile ~/.ssh/id_ed25519
+  IdentitiesOnly yes
+  ServerAliveInterval 60
+
+# Pasos rápidos
+# 1) Generar clave (si no tienes):
+#    ssh-keygen -t ed25519 -C "deploy@mi_maquina"
+# 2) Copiar clave al servidor (introduce la contraseña una vez):
+#    ssh-copy-id deploy@168.231.112.40
+# 3) Probar conexión:
+#    ssh -v hotel_vps
+# 4) En VS Code: Ctrl+Shift+P -> "Remote-SSH: Connect to Host..." -> selecciona "hotel_vps"
+# 5) Si VS Code solicita la clave, asegúrate de tener ssh-agent corriendo:
+#    eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519
+
+# Notas de seguridad
+# - Después de verificar el acceso, deshabilita el login por contraseña en /etc/ssh/sshd_config:
+#     PermitRootLogin no
+#     PasswordAuthentication no
+# - Asegura permisos de la llave privada: chmod 600 ~/.ssh/id_ed25519
+
+# Si quieres, puedo generar un bloque JSON para VS Code o adaptar el Host para otro usuario/puerto.

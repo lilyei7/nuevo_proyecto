@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear Nuevo Hotel{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 text-white">🏨 Crear Nuevo Hotel</h1>
+                <a href="{% url 'hotels_otasync:hotel_list' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Volver a Lista
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card bg-dark shadow">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="m-0 font-weight-bold">Información del Hotel</h6>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Información Básica -->
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="name" class="form-label text-white">Nombre del Hotel *</label>
+                                <input type="text" class="form-control bg-secondary text-white" id="name" name="name" required
+                                       placeholder="Ej: Hotel Ejemplo Booking">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="url" class="form-label text-white">URL de Booking.com *</label>
+                                <input type="url" class="form-control bg-secondary text-white" id="url" name="url" required
+                                       placeholder="https://www.booking.com/hotel/mx/ejemplo.html">
+                                <small class="text-muted">URL completa de la página del hotel en Booking.com</small>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="city" class="form-label text-white">Ciudad</label>
+                                <input type="text" class="form-control bg-secondary text-white" id="city" name="city"
+                                       placeholder="Ciudad de México">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="country" class="form-label text-white">País</label>
+                                <input type="text" class="form-control bg-secondary text-white" id="country" name="country"
+                                       placeholder="México" value="México">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="description" class="form-label text-white">Descripción</label>
+                                <textarea class="form-control bg-secondary text-white" id="description" name="description" rows="3"
+                                          placeholder="Descripción opcional del hotel"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Configuración OTASync -->
+                        <div class="card bg-secondary mt-4">
+                            <div class="card-header bg-info text-white">
+                                <h6 class="m-0">🔄 Configuración OTASync</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="otasync_property_id" class="form-label text-white">Property ID de OTASync</label>
+                                        <input type="text" class="form-control bg-dark text-white" id="otasync_property_id" 
+                                               name="otasync_property_id" value="{{ default_otasync_property_id }}"
+                                               placeholder="9355">
+                                        <small class="text-muted">ID de la propiedad en OTASync</small>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="otasync_pricing_plan_id" class="form-label text-white">Pricing Plan ID</label>
+                                        <input type="text" class="form-control bg-dark text-white" id="otasync_pricing_plan_id" 
+                                               name="otasync_pricing_plan_id" value="{{ default_otasync_pricing_plan_id }}"
+                                               placeholder="26946">
+                                        <small class="text-muted">ID del plan de precios en OTASync</small>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="otasync_room_type_id" class="form-label text-white">Room Type ID (Opcional)</label>
+                                        <input type="text" class="form-control bg-dark text-white" id="otasync_room_type_id" 
+                                               name="otasync_room_type_id" placeholder="29119">
+                                        <small class="text-muted">ID del tipo de habitación específico</small>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="otasync_sync_days" class="form-label text-white">Días de Sincronización</label>
+                                        <input type="number" class="form-control bg-dark text-white" id="otasync_sync_days" 
+                                               name="otasync_sync_days" value="{{ default_sync_days }}" min="1" max="365">
+                                        <small class="text-muted">Número de días hacia adelante para sincronizar</small>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-info" role="alert">
+                                    <strong>💡 Tip:</strong> Si completas los campos de OTASync Property ID y Pricing Plan ID, 
+                                    el sistema habilitará automáticamente la sincronización con OTASync.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-save"></i> Crear Hotel
+                                </button>
+                                <a href="{% url 'hotels_otasync:hotel_list' %}" class="btn btn-secondary ml-2">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Section -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card bg-dark shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="m-0 font-weight-bold">📚 Ayuda</h6>
+                </div>
+                <div class="card-body">
+                    <h6 class="text-white">¿Cómo obtener la URL de Booking.com?</h6>
+                    <ol class="text-muted">
+                        <li>Ve a <strong>booking.com</strong></li>
+                        <li>Busca y selecciona el hotel</li>
+                        <li>Copia la URL completa de la página del hotel</li>
+                        <li>La URL debe verse como: <code>https://www.booking.com/hotel/mx/nombre-hotel.html</code></li>
+                    </ol>
+
+                    <h6 class="text-white mt-3">¿Cómo obtener los IDs de OTASync?</h6>
+                    <ul class="text-muted">
+                        <li><strong>Property ID:</strong> ID de tu propiedad en OTASync (ej: 9355)</li>
+                        <li><strong>Pricing Plan ID:</strong> ID del plan de precios (ej: 26946)</li>
+                        <li><strong>Room Type ID:</strong> Opcional, para habitaciones específicas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

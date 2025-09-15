@@ -1,0 +1,26 @@
+/* Hotels page scoped styles
+   All selectors are namespaced under .hotels-page to avoid conflicts
+*/
+
+.hotels-page {
+    padding-top: 0.5rem;
+}
+
+.hotels-page .hotels-grid {
+    gap: 0.75rem; /* tighter grid gap */
+    margin-top: 0.25rem;
+}
+
+.hotels-page .hotel-card {
+    border-radius: 0.6rem;
+}
+
+.hotel-card .card-body {
+    padding: 0.75rem 0.9rem;
+}
+
+.hotel-card .card-footer {
+    padding: 0.5rem 0.9rem;
+}
+
+/* Keep other styles minimal here; main.css handles most visuals */

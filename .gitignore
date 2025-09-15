@@ -1,0 +1,90 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+*.log.*
+logs/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Test files
+test_*.py
+*_test.py
+tests/temp/
+
+# Debug files
+debug_*.py
+*_debug.py
+debug.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables (keep template but ignore actual)
+.env.local
+.env.production
+
+# Secrets and credentials
+.env
+credentials.txt
+kunas/credentials.txt
+kunas/**/credentials.txt
+*.pem
+*.key
+
+# Backups and large data
+kunas/backups/
+massive_scraping_*.json
+verification_results_*.json
+*.sqlite3
+scraperdb.db
+
+# Build outputs
+*.tar.gz
+*.zip
+
+# Documentation builds
+docs/_build/

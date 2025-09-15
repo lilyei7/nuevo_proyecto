@@ -1,0 +1,49 @@
+/* Dashboard page scoped styles */
+.dashboard-page .dashboard-container {
+    /* tighter top/bottom padding so content sits closer to topbar/sidebar */
+    padding: 0.6rem 1rem;
+    margin-top: 0;
+}
+
+.dashboard-page .page-header {
+    padding: 0.25rem 0 0.5rem 0;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-page .page-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.dashboard-page .page-subtitle {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.dashboard-page .quick-stat,
+.dashboard-page .quick-actions {
+    margin-bottom: 0.75rem;
+}
+
+.dashboard-page .stat-card {
+    border-radius: 0.75rem;
+}
+
+/* Fallback styling for injected system status summary */
+#system-status-container .fallback-summary {
+    display: block;
+    padding: 0.5rem 0;
+}
+
+#system-status-container .fallback-summary .stat {
+    display: inline-block;
+    min-width: 120px;
+    text-align: center;
+    padding: 0.35rem 0.5rem;
+}
+
+/* Ensure small loading overlay is hidden when JS populates the area */
+#loading-overlay.hidden, .loading-overlay.hidden {
+    display: none !important;
+}

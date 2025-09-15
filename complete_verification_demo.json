@@ -1,0 +1,172 @@
+{
+  "demo_timestamp": "2025-09-11T00:07:16.692796",
+  "total_hotels": 3,
+  "verified_hotels": 3,
+  "success_rate": 100.0,
+  "financial_summary": {
+    "total_revenue": 6955.9400000000005,
+    "total_margins": 1701.1399999999999,
+    "average_margin_percent": 24.455932627365957
+  },
+  "detailed_results": [
+    {
+      "hotel_id": 1,
+      "hotel_name": "Hotel Premium Centro",
+      "date": "2025-12-15",
+      "base_price": 1080.0,
+      "taxes": 172.8,
+      "margin_percentage": 30.0,
+      "source": "booking.com",
+      "subtotal": 1252.8,
+      "margin_amount": 375.84,
+      "final_price": 1628.6399999999999,
+      "verification_passed": true,
+      "verification_details": {
+        "hotel_id": 1,
+        "date": "2025-12-15",
+        "timestamp": "2025-09-11T00:07:15.191230",
+        "validations": {
+          "subtotal": {
+            "valid": true,
+            "expected": 1252.8,
+            "actual": 1252.8,
+            "formula": "1,080.00 + 172.80 = 1,252.80",
+            "test": "Subtotal: 1,252.80 ≈ 1,252.80"
+          },
+          "margin": {
+            "valid": true,
+            "expected": 375.84,
+            "actual": 375.84,
+            "formula": "1,252.80 × (30.0% / 100) = 375.84",
+            "test": "Margen: 375.84 ≈ 375.84"
+          },
+          "final_price": {
+            "valid": true,
+            "expected": 1628.6399999999999,
+            "actual": 1628.6399999999999,
+            "formula": "1,252.80 + 375.84 = 1,628.64",
+            "test": "Final: 1,628.64 ≈ 1,628.64"
+          },
+          "percentage": {
+            "valid": true,
+            "expected": 30.0,
+            "actual": 30.0,
+            "formula": "(375.84 / 1,252.80) × 100 = 30.00%",
+            "test": "Porcentaje: 30.00% ≈ 30.00%"
+          }
+        },
+        "overall_valid": true,
+        "errors": []
+      },
+      "processed_timestamp": "2025-09-11T00:07:15.191295"
+    },
+    {
+      "hotel_id": 2,
+      "hotel_name": "Hotel Económico Plaza",
+      "date": "2025-12-16",
+      "base_price": 650.0,
+      "taxes": 104.0,
+      "margin_percentage": 25.0,
+      "source": "expedia.com",
+      "subtotal": 754.0,
+      "margin_amount": 188.5,
+      "final_price": 942.5,
+      "verification_passed": true,
+      "verification_details": {
+        "hotel_id": 2,
+        "date": "2025-12-16",
+        "timestamp": "2025-09-11T00:07:15.691853",
+        "validations": {
+          "subtotal": {
+            "valid": true,
+            "expected": 754.0,
+            "actual": 754.0,
+            "formula": "650.00 + 104.00 = 754.00",
+            "test": "Subtotal: 754.00 ≈ 754.00"
+          },
+          "margin": {
+            "valid": true,
+            "expected": 188.5,
+            "actual": 188.5,
+            "formula": "754.00 × (25.0% / 100) = 188.50",
+            "test": "Margen: 188.50 ≈ 188.50"
+          },
+          "final_price": {
+            "valid": true,
+            "expected": 942.5,
+            "actual": 942.5,
+            "formula": "754.00 + 188.50 = 942.50",
+            "test": "Final: 942.50 ≈ 942.50"
+          },
+          "percentage": {
+            "valid": true,
+            "expected": 25.0,
+            "actual": 25.0,
+            "formula": "(188.50 / 754.00) × 100 = 25.00%",
+            "test": "Porcentaje: 25.00% ≈ 25.00%"
+          }
+        },
+        "overall_valid": true,
+        "errors": []
+      },
+      "processed_timestamp": "2025-09-11T00:07:15.692225"
+    },
+    {
+      "hotel_id": 3,
+      "hotel_name": "Resort de Lujo Cancún",
+      "date": "2025-12-17",
+      "base_price": 2800.0,
+      "taxes": 448.0,
+      "margin_percentage": 35.0,
+      "source": "hotels.com",
+      "subtotal": 3248.0,
+      "margin_amount": 1136.8,
+      "final_price": 4384.8,
+      "verification_passed": true,
+      "verification_details": {
+        "hotel_id": 3,
+        "date": "2025-12-17",
+        "timestamp": "2025-09-11T00:07:16.192417",
+        "validations": {
+          "subtotal": {
+            "valid": true,
+            "expected": 3248.0,
+            "actual": 3248.0,
+            "formula": "2,800.00 + 448.00 = 3,248.00",
+            "test": "Subtotal: 3,248.00 ≈ 3,248.00"
+          },
+          "margin": {
+            "valid": true,
+            "expected": 1136.8,
+            "actual": 1136.8,
+            "formula": "3,248.00 × (35.0% / 100) = 1,136.80",
+            "test": "Margen: 1,136.80 ≈ 1,136.80"
+          },
+          "final_price": {
+            "valid": true,
+            "expected": 4384.8,
+            "actual": 4384.8,
+            "formula": "3,248.00 + 1,136.80 = 4,384.80",
+            "test": "Final: 4,384.80 ≈ 4,384.80"
+          },
+          "percentage": {
+            "valid": true,
+            "expected": 35.0,
+            "actual": 35.0,
+            "formula": "(1,136.80 / 3,248.00) × 100 = 35.00%",
+            "test": "Porcentaje: 35.00% ≈ 35.00%"
+          }
+        },
+        "overall_valid": true,
+        "errors": []
+      },
+      "processed_timestamp": "2025-09-11T00:07:16.192488"
+    }
+  ],
+  "system_info": {
+    "verification_tolerance": 0.01,
+    "calculation_method": "base_price + taxes = subtotal; subtotal * margin% = final_price",
+    "django_server": "http://127.0.0.1:8001/",
+    "monitor_url": "http://127.0.0.1:8001/dashboard/monitor/"
+  }
+}

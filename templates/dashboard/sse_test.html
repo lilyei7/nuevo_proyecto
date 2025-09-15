@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Prueba SSE - Diagnóstico de Conexiones</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .test-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .test-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        .log-container {
+            background: #1e1e1e;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            height: 300px;
+            overflow-y: auto;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .log-entry {
+            margin: 2px 0;
+            padding: 3px 5px;
+        }
+        
+        .log-entry.success { color: #28a745; }
+        .log-entry.error { color: #dc3545; }
+        .log-entry.warning { color: #ffc107; }
+        .log-entry.info { color: #17a2b8; }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-connected { background: #28a745; }
+        .status-disconnected { background: #dc3545; }
+        .status-connecting { background: #ffc107; }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="test-card p-4">
+                        <h1 class="text-center mb-4">🔧 Diagnóstico SSE - Servidor de Eventos</h1>
+                        
+                        <!-- Estado de conexiones -->
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h5>SSE Corregido</h5>
+                                        <p>
+                                            <span class="status-indicator" id="status-fixed"></span>
+                                            <span id="status-text-fixed">Desconectado</span>
+                                        </p>
+                                        <button class="btn btn-success btn-sm" onclick="testSSE('fixed')">Probar</button>
+                                        <button class="btn btn-danger btn-sm" onclick="stopSSE('fixed')">Detener</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h5>SSE Original</h5>
+                                        <p>
+                                            <span class="status-indicator" id="status-original"></span>
+                                            <span id="status-text-original">Desconectado</span>
+                                        </p>
+                                        <button class="btn btn-warning btn-sm" onclick="testSSE('original')">Probar</button>
+                                        <button class="btn btn-danger btn-sm" onclick="stopSSE('original')">Detener</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card">
+                                    <div class="card-body text-center">
+                                        <h5>SSE Test Simple</h5>
+                                        <p>
+                                            <span class="status-indicator" id="status-test"></span>
+                                            <span id="status-text-test">Desconectado</span>
+                                        </p>
+                                        <button class="btn btn-info btn-sm" onclick="testSSE('test')">Probar</button>
+                                        <button class="btn btn-danger btn-sm" onclick="stopSSE('test')">Detener</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Controles generales -->
+                        <div class="text-center mb-4">
+                            <button class="btn btn-primary" onclick="testAllSSE()">Probar Todos</button>
+                            <button class="btn btn-secondary" onclick="stopAllSSE()">Detener Todos</button>
+                            <button class="btn btn-warning" onclick="clearLogs()">Limpiar Logs</button>
+                        </div>
+                        
+                        <!-- Log container -->
+                        <div class="test-card">
+                            <div class="p-3">
+                                <h5>📋 Log de Eventos SSE</h5>
+                                <div class="log-container" id="log-container">
+                                    <div class="log-entry info">[Inicio] Sistema de diagnóstico SSE iniciado</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Enlaces directos -->
+                        <div class="test-card p-3">
+                            <h6>🔗 Enlaces de Prueba Directa:</h6>
+                            <ul>
+                                <li><a href="/dashboard/sse/fixed/" target="_blank">SSE Corregido</a></li>
+                                <li><a href="/dashboard/sse/test/" target="_blank">SSE Test Simple</a></li>
+                                <li><a href="/dashboard/sse/original/" target="_blank">SSE Original</a></li>
+                                <li><a href="/dashboard/health/" target="_blank">Health Check</a></li>
+                                <li><a href="/dashboard/monitor/" target="_blank">Monitor Original</a></li>
+                                <li><a href="/dashboard/monitor/integrated/" target="_blank">Monitor Integrado</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables para manejar conexiones
+        const connections = {
+            fixed: null,
+            original: null,
+            test: null
+        };
+        
+        // Función para agregar log
+        function addLog(message, type = 'info') {
+            const container = document.getElementById('log-container');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            container.appendChild(entry);
+            container.scrollTop = container.scrollHeight;
+        }
+        
+        // Función para actualizar estado de conexión
+        function updateStatus(type, status, text) {
+            const indicator = document.getElementById(`status-${type}`);
+            const textElement = document.getElementById(`status-text-${type}`);
+            
+            indicator.classList.remove('status-connected', 'status-disconnected', 'status-connecting');
+            indicator.classList.add(`status-${status}`);
+            textElement.textContent = text;
+        }
+        
+        // Probar un tipo específico de SSE
+        function testSSE(type) {
+            addLog(`🔍 Iniciando prueba SSE: ${type}`, 'info');
+            updateStatus(type, 'connecting', 'Conectando...');
+            
+            // Cerrar conexión existente si existe
+            if (connections[type]) {
+                connections[type].close();
+            }
+            
+            // Determinar URL del endpoint
+            let url;
+            switch(type) {
+                case 'fixed':
+                    url = '/dashboard/sse/fixed/';
+                    break;
+                case 'original':
+                    url = '/dashboard/sse/original/';
+                    break;
+                case 'test':
+                    url = '/dashboard/sse/test/';
+                    break;
+            }
+            
+            // Crear nueva conexión
+            connections[type] = new EventSource(url);
+            
+            // Manejar eventos
+            connections[type].onopen = function(e) {
+                addLog(`✅ ${type.toUpperCase()} - Conexión abierta`, 'success');
+                updateStatus(type, 'connected', 'Conectado');
+            };
+            
+            connections[type].onmessage = function(e) {
+                try {
+                    const data = JSON.parse(e.data);
+                    addLog(`📨 ${type.toUpperCase()} - Mensaje: ${JSON.stringify(data)}`, 'info');
+                } catch (err) {
+                    addLog(`📨 ${type.toUpperCase()} - Datos: ${e.data}`, 'info');
+                }
+            };
+            
+            connections[type].addEventListener('connection', function(e) {
+                const data = JSON.parse(e.data);
+                addLog(`🔗 ${type.toUpperCase()} - Evento connection: ${data.status}`, 'success');
+            });
+            
+            connections[type].addEventListener('stats', function(e) {
+                const data = JSON.parse(e.data);
+                addLog(`📊 ${type.toUpperCase()} - Stats: ${data.stats.success_rate}% éxito`, 'info');
+            });
+            
+            connections[type].addEventListener('logs', function(e) {
+                const data = JSON.parse(e.data);
+                addLog(`📋 ${type.toUpperCase()} - ${data.logs.length} logs recibidos`, 'info');
+            });
+            
+            connections[type].addEventListener('test', function(e) {
+                const data = JSON.parse(e.data);
+                addLog(`🧪 ${type.toUpperCase()} - Test: ${data.message}`, 'info');
+            });
+            
+            connections[type].onerror = function(e) {
+                console.error(`SSE Error (${type}):`, e);
+                addLog(`❌ ${type.toUpperCase()} - Error de conexión`, 'error');
+                updateStatus(type, 'disconnected', 'Error');
+            };
+            
+            connections[type].onclose = function(e) {
+                addLog(`🔌 ${type.toUpperCase()} - Conexión cerrada`, 'warning');
+                updateStatus(type, 'disconnected', 'Desconectado');
+            };
+        }
+        
+        // Detener un tipo específico de SSE
+        function stopSSE(type) {
+            if (connections[type]) {
+                connections[type].close();
+                connections[type] = null;
+                addLog(`⏹️ ${type.toUpperCase()} - Conexión detenida manualmente`, 'warning');
+                updateStatus(type, 'disconnected', 'Desconectado');
+            }
+        }
+        
+        // Probar todas las conexiones
+        function testAllSSE() {
+            addLog('🚀 Iniciando prueba de todas las conexiones SSE', 'info');
+            testSSE('fixed');
+            setTimeout(() => testSSE('test'), 1000);
+            setTimeout(() => testSSE('original'), 2000);
+        }
+        
+        // Detener todas las conexiones
+        function stopAllSSE() {
+            addLog('⏹️ Deteniendo todas las conexiones SSE', 'warning');
+            Object.keys(connections).forEach(type => stopSSE(type));
+        }
+        
+        // Limpiar logs
+        function clearLogs() {
+            document.getElementById('log-container').innerHTML = '';
+            addLog('🧹 Logs limpiados', 'info');
+        }
+        
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', function() {
+            addLog('🎯 Sistema de diagnóstico SSE cargado', 'success');
+            addLog('💡 Usa los botones para probar diferentes endpoints SSE', 'info');
+            
+            // Probar automáticamente el SSE corregido
+            setTimeout(() => {
+                addLog('🔄 Probando SSE corregido automáticamente...', 'info');
+                testSSE('fixed');
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

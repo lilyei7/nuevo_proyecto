@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-09-10T23:55:00",
+  "total_tests": 3,
+  "successful_tests": 3,
+  "success_rate": 100.0,
+  "scenarios": [
+    {
+      "scenario": "Caso Hotel Premium",
+      "subtotal_verified": true,
+      "final_verified": true,
+      "overall_success": true
+    },
+    {
+      "scenario": "Caso Hotel Económico",
+      "subtotal_verified": true,
+      "final_verified": true,
+      "overall_success": true
+    },
+    {
+      "scenario": "Caso Hotel Lujo",
+      "subtotal_verified": true,
+      "final_verified": true,
+      "overall_success": true
+    }
+  ]
+}

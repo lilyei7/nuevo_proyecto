@@ -1,0 +1,403 @@
+{
+  "start_time": "2025-09-10T19:00:51.669024",
+  "simulation_mode": true,
+  "hotels_processed": 1,
+  "dates_processed": 20,
+  "successful_scrapes": 19,
+  "successful_syncs": 0,
+  "failed_scrapes": 1,
+  "failed_syncs": 19,
+  "results": [
+    {
+      "hotel": {
+        "id": 1,
+        "name": "PARK INN MAZATLAN",
+        "url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+        "price_percent": 100.0,
+        "otasync_property_id": "9355",
+        "otasync_room_type_id": "1001",
+        "city": "Mazatlán",
+        "country": "México"
+      },
+      "results": [
+        {
+          "date_range": "2025-10-10 → 2025-10-12",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-10",
+            "check_out": "2025-10-12",
+            "original_price": 132.21,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-11 → 2025-10-13",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-11",
+            "check_out": "2025-10-13",
+            "original_price": 127.56,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-12 → 2025-10-14",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-12",
+            "check_out": "2025-10-14",
+            "original_price": 146.15,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-13 → 2025-10-15",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-13",
+            "check_out": "2025-10-15",
+            "original_price": 84.52,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-14 → 2025-10-16",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-14",
+            "check_out": "2025-10-16",
+            "original_price": 164.85,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-15 → 2025-10-17",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-15",
+            "check_out": "2025-10-17",
+            "original_price": 228.84,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-16 → 2025-10-18",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-16",
+            "check_out": "2025-10-18",
+            "original_price": 175.9,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-17 → 2025-10-19",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-17",
+            "check_out": "2025-10-19",
+            "original_price": 181.91,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-18 → 2025-10-20",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-18",
+            "check_out": "2025-10-20",
+            "original_price": 94.3,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-19 → 2025-10-21",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-19",
+            "check_out": "2025-10-21",
+            "original_price": 125.38,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-20 → 2025-10-22",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-20",
+            "check_out": "2025-10-22",
+            "original_price": 246.01,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-21 → 2025-10-23",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-21",
+            "check_out": "2025-10-23",
+            "original_price": 122.18,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-22 → 2025-10-24",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-22",
+            "check_out": "2025-10-24",
+            "original_price": 155.15,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-23 → 2025-10-25",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-23",
+            "check_out": "2025-10-25",
+            "original_price": 141.42,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-24 → 2025-10-26",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-24",
+            "check_out": "2025-10-26",
+            "original_price": 199.65,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-25 → 2025-10-27",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-25",
+            "check_out": "2025-10-27",
+            "original_price": 222.47,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-26 → 2025-10-28",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-26",
+            "check_out": "2025-10-28",
+            "original_price": 174.25,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-27 → 2025-10-29",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-27",
+            "check_out": "2025-10-29",
+            "original_price": 182.18,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-28 → 2025-10-30",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-28",
+            "check_out": "2025-10-30",
+            "original_price": 80.87,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": false,
+            "error": "OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'"
+          },
+          "status": "sync_failed"
+        },
+        {
+          "date_range": "2025-10-29 → 2025-10-31",
+          "scrape_result": null,
+          "sync_result": null,
+          "status": "scrape_failed"
+        }
+      ]
+    }
+  ],
+  "total_revenue_original": 2985.7999999999997,
+  "total_revenue_with_margin": 0.0,
+  "total_margin_earned": -2985.8,
+  "errors": [
+    "Sync error - PARK INN MAZATLAN 2025-10-10: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-11: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-12: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-13: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-14: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-15: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-16: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-17: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-18: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-19: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-20: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-21: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-22: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-23: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-24: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-25: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-26: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-27: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Sync error - PARK INN MAZATLAN 2025-10-28: OTASyncAPIClient.edit_prices() missing 4 required positional arguments: 'pricing_plan_id', 'date_from', 'date_to', and 'rooms'",
+    "Scrape error - PARK INN MAZATLAN 2025-10-29"
+  ],
+  "end_time": "2025-09-10T19:01:48.658230",
+  "elapsed_time_seconds": 56.99,
+  "success_rate_scraping": 95.0,
+  "success_rate_sync": 0.0
+}

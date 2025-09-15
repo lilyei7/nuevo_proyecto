@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Detalle Hotel - {{ object.name }}{% endblock %}
+
+{% block content %}
+<div class="hotel-detail-container container">
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col">
+        <h1 class="page-title"><i class="bi bi-building me-2"></i>{{ object.name }}</h1>
+        <p class="text-muted">{{ object.city }}, {{ object.country }}</p>
+      </div>
+      <div class="col-auto">
+        <a href="{% url 'hotel_list' %}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Volver</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-body">
+      <h5>Información</h5>
+      <dl class="row">
+        <dt class="col-sm-3">Fuente</dt>
+        <dd class="col-sm-9">{{ object.source }}</dd>
+
+        <dt class="col-sm-3">URL</dt>
+        <dd class="col-sm-9"><a href="{{ object.url }}" target="_blank" rel="noopener">{{ object.url }}</a></dd>
+
+        <dt class="col-sm-3">Descripción</dt>
+        <dd class="col-sm-9">{{ object.description|default:'-' }}</dd>
+
+        <dt class="col-sm-3">Estado</dt>
+        <dd class="col-sm-9">{{ object.get_status_display }}</dd>
+
+        <dt class="col-sm-3">Margen de Precio</dt>
+        <dd class="col-sm-9">
+          {% if object.price_percent %}
+            {{ object.price_percent }}%
+            <small class="text-muted">(Se agrega {{ object.price_percent }}% al precio base encontrado)</small>
+          {% else %}
+            Sin margen
+            <small class="text-muted">(Se usa el precio base sin modificaciones)</small>
+          {% endif %}
+        </dd>
+
+        <dt class="col-sm-3">OTASync</dt>
+        <dd class="col-sm-9">
+          {% if object.otasync_enabled %}
+            Habilitado — Property: {{ object.otasync_property_id }}, Plan: {{ object.otasync_pricing_plan_id }}, Sync: {{ object.otasync_sync_days }} días
+          {% else %}
+            No configurado
+          {% endif %}
+        </dd>
+      </dl>
+
+      <div class="mt-3">
+        <a class="btn btn-primary" href="{% url 'hotel_update' object.pk %}"><i class="bi bi-pencil"></i> Editar</a>
+        <a class="btn btn-outline-danger" href="{% url 'hotel_delete' object.pk %}" onclick="return confirm('¿Estás seguro de que quieres eliminar este hotel?')"><i class="bi bi-trash"></i> Eliminar</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<link href="{% static 'css/hotels.css' %}" rel="stylesheet">
+<script src="{% static 'js/hotels.js' %}"></script>
+{% endblock %}

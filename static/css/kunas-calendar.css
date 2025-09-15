@@ -1,0 +1,308 @@
+/* 
+CALENDARIO KUNAS ROBUSTO - CSS
+=============================
+Un calendario increíble y funcional para el sidebar
+*/
+
+.kunas-calendar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.kunas-calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+}
+
+.kunas-calendar-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+}
+
+.kunas-calendar-nav {
+    display: flex;
+    gap: 10px;
+}
+
+.kunas-nav-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.kunas-nav-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.1);
+}
+
+.kunas-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.kunas-day-header {
+    text-align: center;
+    font-weight: bold;
+    padding: 8px 4px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.kunas-day-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 45px;
+    font-size: 0.9rem;
+}
+
+.kunas-day-cell.empty {
+    opacity: 0.3;
+}
+
+.kunas-day-cell.today {
+    background: rgba(255,215,0,0.3);
+    border: 2px solid #ffd700;
+    font-weight: bold;
+}
+
+.kunas-day-cell.has-price {
+    background: rgba(46, 204, 113, 0.3);
+    border: 1px solid #2ecc71;
+}
+
+.kunas-day-cell.has-price:hover {
+    background: rgba(46, 204, 113, 0.5);
+    transform: scale(1.05);
+}
+
+.kunas-day-cell.updated-today {
+    background: rgba(231, 76, 60, 0.3);
+    border: 1px solid #e74c3c;
+    animation: pulse 2s infinite;
+}
+
+.kunas-day-number {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.kunas-day-price {
+    font-size: 0.7rem;
+    color: #2ecc71;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.kunas-day-updated {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 6px;
+    height: 6px;
+    background: #e74c3c;
+    border-radius: 50%;
+    animation: blink 1s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+}
+
+@keyframes blink {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.kunas-calendar-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.kunas-stat {
+    text-align: center;
+    padding: 8px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.kunas-stat:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.kunas-stat-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: block;
+}
+
+.kunas-stat-label {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    margin-top: 2px;
+}
+
+.kunas-calendar-legend {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-size: 0.8rem;
+}
+
+.kunas-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.kunas-legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+}
+
+.kunas-legend-color.has-price { background: rgba(46, 204, 113, 0.6); }
+.kunas-legend-color.updated { background: rgba(231, 76, 60, 0.6); }
+.kunas-legend-color.today { background: rgba(255, 215, 0, 0.6); }
+
+/* Historial expandible */
+.kunas-history {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.kunas-history-header {
+    padding: 12px 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+}
+
+.kunas-history-header:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.kunas-history-title {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.kunas-history-arrow {
+    transition: transform 0.3s ease;
+}
+
+.kunas-history.expanded .kunas-history-arrow {
+    transform: rotate(180deg);
+}
+
+.kunas-history-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.kunas-history.expanded .kunas-history-content {
+    max-height: 300px;
+}
+
+.kunas-history-list {
+    padding: 0 15px 15px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.kunas-history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
+}
+
+.kunas-history-item:last-child {
+    border-bottom: none;
+}
+
+.kunas-history-date {
+    color: rgba(255,255,255,0.9);
+}
+
+.kunas-history-price {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.kunas-history-time {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .kunas-calendar {
+        margin: 10px 0;
+        padding: 15px;
+    }
+    
+    .kunas-calendar-title {
+        font-size: 1.2rem;
+    }
+    
+    .kunas-day-cell {
+        min-height: 35px;
+        font-size: 0.8rem;
+    }
+    
+    .kunas-day-price {
+        font-size: 0.65rem;
+    }
+    
+    .kunas-calendar-stats {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}

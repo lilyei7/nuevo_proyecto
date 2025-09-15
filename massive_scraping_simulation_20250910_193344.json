@@ -1,0 +1,574 @@
+{
+  "start_time": "2025-09-10T19:32:38.694692",
+  "simulation_mode": true,
+  "hotels_processed": 1,
+  "dates_processed": 20,
+  "successful_scrapes": 19,
+  "successful_syncs": 19,
+  "failed_scrapes": 1,
+  "failed_syncs": 0,
+  "results": [
+    {
+      "hotel": {
+        "id": 1,
+        "name": "PARK INN MAZATLAN",
+        "url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+        "price_percent": 100.0,
+        "otasync_property_id": "9355",
+        "otasync_room_type_id": "1001",
+        "city": "Mazatlán",
+        "country": "México"
+      },
+      "results": [
+        {
+          "date_range": "2025-10-10 → 2025-10-12",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-10",
+            "check_out": "2025-10-12",
+            "original_price": 106.13,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 3061095786,
+            "original_price": 106.13,
+            "final_price": 212.26,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 212.26,
+              "date": "2025-10-10"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-11 → 2025-10-13",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-11",
+            "check_out": "2025-10-13",
+            "original_price": 219.05,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 3928660614,
+            "original_price": 219.05,
+            "final_price": 438.1,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 438.1,
+              "date": "2025-10-11"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-12 → 2025-10-14",
+          "scrape_result": null,
+          "sync_result": null,
+          "status": "scrape_failed"
+        },
+        {
+          "date_range": "2025-10-13 → 2025-10-15",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-13",
+            "check_out": "2025-10-15",
+            "original_price": 188.78,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 736827019,
+            "original_price": 188.78,
+            "final_price": 377.56,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 377.56,
+              "date": "2025-10-13"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-14 → 2025-10-16",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-14",
+            "check_out": "2025-10-16",
+            "original_price": 128.32,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 2321736791,
+            "original_price": 128.32,
+            "final_price": 256.64,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 256.64,
+              "date": "2025-10-14"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-15 → 2025-10-17",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-15",
+            "check_out": "2025-10-17",
+            "original_price": 265.91,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 894307413,
+            "original_price": 265.91,
+            "final_price": 531.82,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 531.82,
+              "date": "2025-10-15"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-16 → 2025-10-18",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-16",
+            "check_out": "2025-10-18",
+            "original_price": 285.26,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 1744194759,
+            "original_price": 285.26,
+            "final_price": 570.52,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 570.52,
+              "date": "2025-10-16"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-17 → 2025-10-19",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-17",
+            "check_out": "2025-10-19",
+            "original_price": 271.61,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 1947026110,
+            "original_price": 271.61,
+            "final_price": 543.22,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 543.22,
+              "date": "2025-10-17"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-18 → 2025-10-20",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-18",
+            "check_out": "2025-10-20",
+            "original_price": 138.44,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 812446504,
+            "original_price": 138.44,
+            "final_price": 276.88,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 276.88,
+              "date": "2025-10-18"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-19 → 2025-10-21",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-19",
+            "check_out": "2025-10-21",
+            "original_price": 145.18,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 3123435476,
+            "original_price": 145.18,
+            "final_price": 290.36,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 290.36,
+              "date": "2025-10-19"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-20 → 2025-10-22",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-20",
+            "check_out": "2025-10-22",
+            "original_price": 161.17,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 1435938429,
+            "original_price": 161.17,
+            "final_price": 322.34,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 322.34,
+              "date": "2025-10-20"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-21 → 2025-10-23",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-21",
+            "check_out": "2025-10-23",
+            "original_price": 140.07,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 3900983488,
+            "original_price": 140.07,
+            "final_price": 280.14,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 280.14,
+              "date": "2025-10-21"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-22 → 2025-10-24",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-22",
+            "check_out": "2025-10-24",
+            "original_price": 150.64,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 672586173,
+            "original_price": 150.64,
+            "final_price": 301.28,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 301.28,
+              "date": "2025-10-22"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-23 → 2025-10-25",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-23",
+            "check_out": "2025-10-25",
+            "original_price": 163.84,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 4281435542,
+            "original_price": 163.84,
+            "final_price": 327.68,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 327.68,
+              "date": "2025-10-23"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-24 → 2025-10-26",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-24",
+            "check_out": "2025-10-26",
+            "original_price": 96.12,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 4117976138,
+            "original_price": 96.12,
+            "final_price": 192.24,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 192.24,
+              "date": "2025-10-24"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-25 → 2025-10-27",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-25",
+            "check_out": "2025-10-27",
+            "original_price": 116.57,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 3394554245,
+            "original_price": 116.57,
+            "final_price": 233.14,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 233.14,
+              "date": "2025-10-25"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-26 → 2025-10-28",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-26",
+            "check_out": "2025-10-28",
+            "original_price": 104.5,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 1288203659,
+            "original_price": 104.5,
+            "final_price": 209.0,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 209.0,
+              "date": "2025-10-26"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-27 → 2025-10-29",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-27",
+            "check_out": "2025-10-29",
+            "original_price": 241.09,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 718336347,
+            "original_price": 241.09,
+            "final_price": 482.18,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 482.18,
+              "date": "2025-10-27"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-28 → 2025-10-30",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-28",
+            "check_out": "2025-10-30",
+            "original_price": 161.78,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 745290120,
+            "original_price": 161.78,
+            "final_price": 323.56,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 323.56,
+              "date": "2025-10-28"
+            }
+          },
+          "status": "success"
+        },
+        {
+          "date_range": "2025-10-29 → 2025-10-31",
+          "scrape_result": {
+            "hotel_name": "PARK INN MAZATLAN",
+            "check_in": "2025-10-29",
+            "check_out": "2025-10-31",
+            "original_price": 136.47,
+            "currency": "EUR",
+            "availability": "disponible",
+            "source_url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+            "simulated": true
+          },
+          "sync_result": {
+            "success": true,
+            "changelog_id": 2624570202,
+            "original_price": 136.47,
+            "final_price": 272.94,
+            "margin_applied": 100.0,
+            "otasync_data": {
+              "property_id": "9355",
+              "room_type_id": "1001",
+              "pricing_plan_id": 26946,
+              "price": 272.94,
+              "date": "2025-10-29"
+            }
+          },
+          "status": "success"
+        }
+      ]
+    }
+  ],
+  "total_revenue_original": 3220.9300000000003,
+  "total_revenue_with_margin": 6441.860000000001,
+  "total_margin_earned": 3220.93,
+  "errors": [
+    "Scrape error - PARK INN MAZATLAN 2025-10-12"
+  ],
+  "end_time": "2025-09-10T19:33:44.131332",
+  "elapsed_time_seconds": 65.44,
+  "success_rate_scraping": 95.0,
+  "success_rate_sync": 100.0
+}

@@ -1,0 +1,111 @@
+{
+  "property_id": "9355",
+  "pricing_plan_id": "26946",
+  "room_type_id": "1001",
+  "percentage": 40.0,
+  "total_dates": 5,
+  "success_count": 5,
+  "success_rate": 100.0,
+  "results": [
+    {
+      "date": "2025-09-10",
+      "base_price": 1800.4,
+      "final_price": 2520.56,
+      "status": 200,
+      "success": true,
+      "response": {
+        "id_changelog": 18861122,
+        "old_values": {
+          "1001": {
+            "2025-09-10": "2295.16"
+          }
+        },
+        "new_values": {
+          "1001": {
+            "2025-09-10": "2520.56"
+          }
+        }
+      }
+    },
+    {
+      "date": "2025-09-11",
+      "base_price": 1636.6,
+      "final_price": 2291.24,
+      "status": 200,
+      "success": true,
+      "response": {
+        "id_changelog": 18861123,
+        "old_values": {
+          "1001": {
+            "2025-09-11": "2075.64"
+          }
+        },
+        "new_values": {
+          "1001": {
+            "2025-09-11": "2291.24"
+          }
+        }
+      }
+    },
+    {
+      "date": "2025-09-12",
+      "base_price": 1750.0,
+      "final_price": 2450.0,
+      "status": 200,
+      "success": true,
+      "response": {
+        "id_changelog": 18861124,
+        "old_values": {
+          "1001": {
+            "2025-09-12": "2979.2"
+          }
+        },
+        "new_values": {
+          "1001": {
+            "2025-09-12": "2450"
+          }
+        }
+      }
+    },
+    {
+      "date": "2025-09-13",
+      "base_price": 1900.0,
+      "final_price": 2660.0,
+      "status": 200,
+      "success": true,
+      "response": {
+        "id_changelog": 18861126,
+        "old_values": {
+          "1001": {
+            "2025-09-13": "3034.08"
+          }
+        },
+        "new_values": {
+          "1001": {
+            "2025-09-13": "2660"
+          }
+        }
+      }
+    },
+    {
+      "date": "2025-09-14",
+      "base_price": 2000.0,
+      "final_price": 2800.0,
+      "status": 200,
+      "success": true,
+      "response": {
+        "id_changelog": 18861127,
+        "old_values": {
+          "1001": {
+            "2025-09-14": "2793"
+          }
+        },
+        "new_values": {
+          "1001": {
+            "2025-09-14": "2800"
+          }
+        }
+      }
+    }
+  ]
+}

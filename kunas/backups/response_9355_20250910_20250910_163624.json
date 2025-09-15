@@ -1,0 +1,42 @@
+{
+  "status": 200,
+  "body": {
+    "id_changelog": 18861122,
+    "old_values": {
+      "1001": {
+        "2025-09-10": "2295.16"
+      }
+    },
+    "new_values": {
+      "1001": {
+        "2025-09-10": "2520.56"
+      }
+    }
+  },
+  "payload": {
+    "token": "3445e04856573160b11498994e9feac342628488",
+    "key": "93ff8af77f5edf96d0b52352ca5ad34e2236fe49",
+    "id_properties": 9355,
+    "id_pricing_plans": 26946,
+    "dfrom": "2025-09-10",
+    "dto": "2025-09-10",
+    "rooms": [
+      {
+        "id_room_types": 1001,
+        "value": 2520.56
+      }
+    ],
+    "variation_type": 0,
+    "weekdays": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "date": "2025-09-10",
+  "final_price": 2520.56
+}

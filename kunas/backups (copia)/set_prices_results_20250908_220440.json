@@ -1,0 +1,34 @@
+[
+  {
+    "id": "9355",
+    "name": "PatricioRamos(AIBNB)529986508562",
+    "result": {
+      "ok": true,
+      "dry_run": true,
+      "payload": {
+        "token": "3445e04856573160b11498994e9feac342628488",
+        "key": "89de5bbb6127738d6de8b415a26e391c254bcd94",
+        "id_properties": 9355,
+        "id_pricing_plans": 26946,
+        "dfrom": "2025-09-08",
+        "dto": "2025-09-27",
+        "rooms": [
+          {
+            "id_room_types": 29119,
+            "value": 3000
+          }
+        ],
+        "variation_type": 0,
+        "weekdays": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  }
+]

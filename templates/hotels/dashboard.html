@@ -1,0 +1,298 @@
+{% extends 'base.html' %}
+
+{% block title %}OTASync Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header -->
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 text-white">🏨 OTASync Dashboard</h1>
+                <a href="{% url 'hotels_otasync:hotel_create' %}" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Nuevo Hotel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-primary text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Total Hoteles</div>
+                            <div class="h5 mb-0 font-weight-bold">{{ total_hotels }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-hotel fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-success text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Hoteles Activos</div>
+                            <div class="h5 mb-0 font-weight-bold">{{ active_hotels }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-info text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Con OTASync</div>
+                            <div class="h5 mb-0 font-weight-bold">{{ otasync_enabled_hotels }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-sync fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card bg-warning text-white shadow">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Estado Sistema</div>
+                            <div class="h5 mb-0 font-weight-bold">
+                                {% if hotel_service_available %}✅ OK{% else %}⚠️ Error{% endif %}
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-cogs fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Row -->
+    <div class="row">
+        <!-- Recent Results -->
+        <div class="col-lg-6 mb-4">
+            <div class="card bg-dark shadow">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="m-0 font-weight-bold">📊 Resultados Recientes</h6>
+                </div>
+                <div class="card-body">
+                    {% if recent_results %}
+                        <div class="table-responsive">
+                            <table class="table table-dark table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Hotel</th>
+                                        <th>Fecha</th>
+                                        <th>Precio</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for result in recent_results %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'hotels_otasync:hotel_detail' result.hotel.pk %}" class="text-light">
+                                                {{ result.hotel.name|truncatechars:20 }}
+                                            </a>
+                                        </td>
+                                        <td>{{ result.check_in }}</td>
+                                        <td>
+                                            {% if result.price %}
+                                                ${{ result.price }}
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if result.success %}
+                                                <span class="badge badge-success">✅</span>
+                                            {% else %}
+                                                <span class="badge badge-danger">❌</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No hay resultados de scraping aún.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Recently Synced Hotels -->
+        <div class="col-lg-6 mb-4">
+            <div class="card bg-dark shadow">
+                <div class="card-header bg-info text-white">
+                    <h6 class="m-0 font-weight-bold">🔄 Sincronizaciones Recientes</h6>
+                </div>
+                <div class="card-body">
+                    {% if recently_synced %}
+                        {% for hotel in recently_synced %}
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="mr-3">
+                                {% if hotel.otasync_enabled %}
+                                    <i class="fas fa-sync text-success"></i>
+                                {% else %}
+                                    <i class="fas fa-times text-danger"></i>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <div class="font-weight-bold">
+                                    <a href="{% url 'hotels_otasync:hotel_detail' hotel.pk %}" class="text-light">
+                                        {{ hotel.name }}
+                                    </a>
+                                </div>
+                                <div class="small text-muted">
+                                    {% if hotel.last_sync %}
+                                        {{ hotel.last_sync|timesince }} ago
+                                    {% else %}
+                                        Nunca sincronizado
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">No hay sincronizaciones recientes.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-dark shadow">
+                <div class="card-header bg-secondary text-white">
+                    <h6 class="m-0 font-weight-bold">⚡ Acciones Rápidas</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'hotels_otasync:hotel_list' %}" class="btn btn-outline-primary btn-block">
+                                <i class="fas fa-list"></i> Ver Todos los Hoteles
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <a href="{% url 'hotels_otasync:hotel_create' %}" class="btn btn-outline-success btn-block">
+                                <i class="fas fa-plus"></i> Agregar Hotel
+                            </a>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <button class="btn btn-outline-info btn-block" onclick="runGlobalScraping()">
+                                <i class="fas fa-search"></i> Scraping Global
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <button class="btn btn-outline-warning btn-block" onclick="syncAllToOTASync()">
+                                <i class="fas fa-sync"></i> Sync Global
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function runGlobalScraping() {
+    // Desactivar el botón y mostrar mensaje de carga
+    const btn = event.target;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="spinner-border spinner-border-sm"></i> Iniciando scraping...';
+    
+    // Llamar a la API de scraping masivo
+    fetch('/hotels/api/bulk-scrape/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(`✅ ${data.message}`);
+            // Actualizar interfaz para mostrar progreso en tiempo real
+            console.log('Scraping masivo iniciado:', data);
+        } else {
+            alert(`❌ Error: ${data.error}`);
+        }
+    })
+    .catch(error => {
+        console.error('Error en scraping masivo:', error);
+        alert('❌ Error al iniciar scraping masivo. Consulta la consola para más detalles.');
+    })
+    .finally(() => {
+        // Restaurar botón después de 2 segundos
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Scraping Masivo';
+        }, 2000);
+    });
+}
+
+function syncAllToOTASync() {
+    // Desactivar el botón y mostrar mensaje de carga
+    const btn = event.target;
+    btn.disabled = true;
+    btn.innerHTML = '<i class="spinner-border spinner-border-sm"></i> Sincronizando...';
+    
+    // Implementar llamada a la API de sincronización masiva
+    fetch('/hotels/api/bulk-sync/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error en la sincronización');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            alert(`✅ ${data.message}`);
+        } else {
+            alert(`❌ Error: ${data.error}`);
+        }
+    })
+    .catch(error => {
+        console.error('Error en sincronización:', error);
+        alert('❌ Error al sincronizar con OTASync');
+    })
+    .finally(() => {
+        // Restaurar botón después de 2 segundos
+        setTimeout(() => {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Sync OTASync';
+        }, 2000);
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,639 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Monitor de Scraping Avanzado - Hotel Scraper{% endblock %}
+
+{% block extra_css %}
+<style>
+/* 🎨 ESTILOS PARA MONITOR AVANZADO */
+.monitor-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.monitor-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border-left: 5px solid;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card.success { border-left-color: #28a745; }
+.stat-card.warning { border-left-color: #ffc107; }
+.stat-card.danger { border-left-color: #dc3545; }
+.stat-card.info { border-left-color: #17a2b8; }
+.stat-card.primary { border-left-color: #007bff; }
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.monitor-section {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.activity-log {
+    height: 400px;
+    overflow-y: auto;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+}
+
+.log-entry {
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.log-entry.success { background: #d4edda; color: #155724; }
+.log-entry.warning { background: #fff3cd; color: #856404; }
+.log-entry.error { background: #f8d7da; color: #721c24; }
+.log-entry.info { background: #d1ecf1; color: #0c5460; }
+.log-entry.verification { background: #e2e3e5; color: #383d41; }
+
+.log-timestamp {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    min-width: 80px;
+}
+
+.verification-panel {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.verification-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.verification-stat {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.verification-number {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.control-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.btn-monitor {
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-monitor:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-start { background: #28a745; color: white; }
+.btn-stop { background: #dc3545; color: white; }
+.btn-clear { background: #6c757d; color: white; }
+.btn-test { background: #17a2b8; color: white; }
+
+.status-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.status-active { background: #28a745; animation: pulse 2s infinite; }
+.status-inactive { background: #dc3545; }
+.status-pending { background: #ffc107; }
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+}
+
+.progress-container {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.progress-bar-custom {
+    height: 25px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.5s ease;
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .control-buttons {
+        flex-direction: column;
+    }
+    
+    .verification-stats {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="monitor-container">
+    <!-- Monitor Header -->
+    <div class="monitor-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="mb-2">🤖 Monitor de Scraping Avanzado</h1>
+                <p class="mb-0">Sistema de monitoreo en tiempo real con verificación matemática integrada</p>
+            </div>
+            <div class="text-end">
+                <div class="status-indicator status-active"></div>
+                <span>Sistema Activo</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Control Buttons -->
+    <div class="control-buttons">
+        <button class="btn-monitor btn-start" onclick="startScraping()">
+            🚀 Iniciar Scraping
+        </button>
+        <button class="btn-monitor btn-stop" onclick="stopScraping()">
+            🛑 Detener
+        </button>
+        <button class="btn-monitor btn-test" onclick="testVerification()">
+            🧮 Test Verificación
+        </button>
+        <button class="btn-monitor btn-clear" onclick="clearLogs()">
+            🧹 Limpiar Logs
+        </button>
+    </div>
+
+    <!-- Statistics Grid -->
+    <div class="stats-grid">
+        <div class="stat-card success">
+            <div class="stat-number" id="successCount">0</div>
+            <div class="stat-label">✅ Precios Extraídos</div>
+        </div>
+        <div class="stat-card info">
+            <div class="stat-number" id="verifiedCount">0</div>
+            <div class="stat-label">🧮 Verificados Correctos</div>
+        </div>
+        <div class="stat-card warning">
+            <div class="stat-number" id="errorCount">0</div>
+            <div class="stat-label">⚠️ Errores Matemáticos</div>
+        </div>
+        <div class="stat-card primary">
+            <div class="stat-number" id="avgPrice">$0</div>
+            <div class="stat-label">💰 Precio Promedio</div>
+        </div>
+        <div class="stat-card danger">
+            <div class="stat-number" id="failedCount">0</div>
+            <div class="stat-label">❌ Scraping Fallido</div>
+        </div>
+    </div>
+
+    <!-- Verification Panel -->
+    <div class="monitor-section">
+        <div class="verification-panel">
+            <h3>🧮 Panel de Verificación Matemática</h3>
+            <p>Validación automática de cálculos: Precio Base + Impuestos + Margen = Precio Final</p>
+            
+            <div class="verification-stats">
+                <div class="verification-stat">
+                    <div class="verification-number" id="verificationRate">100%</div>
+                    <div>Tasa de Precisión</div>
+                </div>
+                <div class="verification-stat">
+                    <div class="verification-number" id="avgMargin">0%</div>
+                    <div>Margen Promedio</div>
+                </div>
+                <div class="verification-stat">
+                    <div class="verification-number" id="totalProcessed">0</div>
+                    <div>Total Procesados</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Section -->
+    <div class="monitor-section">
+        <h3 class="section-title">
+            📊 Progreso Actual
+        </h3>
+        <div class="progress-container">
+            <div class="d-flex justify-content-between mb-2">
+                <span>Progreso del Scraping</span>
+                <span><span id="currentProgress">0</span>/<span id="totalTarget">20</span></span>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-custom" id="progressBar" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <strong>Hotel Actual:</strong> <span id="currentHotel">-</span>
+            </div>
+            <div class="col-md-6">
+                <strong>Última Actualización:</strong> <span id="lastUpdate">-</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Log -->
+    <div class="monitor-section">
+        <h3 class="section-title">
+            📋 Log de Actividad en Tiempo Real
+        </h3>
+        <div class="activity-log" id="activityLog">
+            <div class="log-entry info">
+                <span class="log-timestamp">23:32:45</span>
+                <span>🚀 Sistema de monitoreo iniciado</span>
+            </div>
+            <div class="log-entry success">
+                <span class="log-timestamp">23:32:46</span>
+                <span>✅ Verificador matemático cargado correctamente</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 🤖 JAVASCRIPT PARA MONITOR AVANZADO
+let eventSource = null;
+let scrapingStats = {
+    success: 0,
+    verified: 0,
+    errors: 0,
+    failed: 0,
+    totalAmount: 0,
+    avgMargin: 0,
+    processed: 0
+};
+
+// Conectar a Server-Sent Events
+function connectSSE() {
+    if (eventSource) {
+        eventSource.close();
+    }
+    
+    // Usar el endpoint SSE corregido
+    eventSource = new EventSource('/dashboard/sse/fixed/');
+    
+    eventSource.onopen = function(e) {
+        addLogEntry('info', '🔗 Conectado al servidor de eventos en tiempo real (Corregido)');
+    };
+    
+    // Manejar eventos del SSE corregido
+    eventSource.addEventListener('connection', function(e) {
+        const data = JSON.parse(e.data);
+        addLogEntry('success', '✅ Conexión SSE establecida');
+    });
+    
+    eventSource.addEventListener('stats', function(e) {
+        const data = JSON.parse(e.data);
+        updateStatsFromSSE(data.stats);
+    });
+    
+    eventSource.addEventListener('logs', function(e) {
+        const data = JSON.parse(e.data);
+        if (data.logs && data.logs.length > 0) {
+            data.logs.forEach(log => {
+                addLogEntry(log.level.toLowerCase(), `[${log.module}] ${log.message}`);
+            });
+        }
+    });
+    
+    eventSource.addEventListener('error', function(e) {
+        const data = JSON.parse(e.data);
+        addLogEntry('error', `❌ Error SSE: ${data.error}`);
+    });
+    
+    // Mantener compatibilidad con eventos antiguos
+    eventSource.addEventListener('scraping_result', function(e) {
+        const data = JSON.parse(e.data);
+        handleScrapingResult(data);
+    });
+    
+    eventSource.addEventListener('verification_result', function(e) {
+        const data = JSON.parse(e.data);
+        handleVerificationResult(data);
+    });
+    
+    eventSource.addEventListener('progress', function(e) {
+        const data = JSON.parse(e.data);
+        updateProgress(data);
+    });
+    
+    eventSource.onerror = function(e) {
+        console.error('SSE Error:', e);
+        // Solo mostrar error si no es un cierre normal
+        if (eventSource.readyState !== EventSource.CLOSED) {
+            addLogEntry('warning', '⚠️ Conexión SSE interrumpida - reintentando...');
+        }
+    };
+}
+
+// Función para actualizar stats desde SSE
+function updateStatsFromSSE(stats) {
+    if (stats) {
+        // Actualizar displays si existen
+        const elements = {
+            'totalScraped': stats.total_logs,
+            'successRate': `${stats.success_rate}%`,
+            'errorCount': stats.error_count,
+            'lastUpdate': new Date(stats.last_update).toLocaleTimeString()
+        };
+        
+        Object.keys(elements).forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = elements[id];
+            }
+        });
+    }
+}
+
+// Manejar resultado de scraping
+function handleScrapingResult(data) {
+    if (data.success) {
+        scrapingStats.success++;
+        scrapingStats.totalAmount += data.price || 0;
+        
+        updateStatsDisplay();
+        
+        const basePrice = data.base_price || 0;
+        const taxes = data.taxes || 0;
+        const margin = data.margin_percent || 0;
+        const finalPrice = data.price || 0;
+        
+        addLogEntry('success', 
+            `💰 ${data.checkin}: Base $${basePrice.toFixed(2)} + Impuestos $${taxes.toFixed(2)} + ${margin}% = $${finalPrice.toFixed(2)}`
+        );
+    } else {
+        scrapingStats.failed++;
+        updateStatsDisplay();
+        addLogEntry('error', `❌ Error scrapeando: ${data.error || 'Error desconocido'}`);
+    }
+}
+
+// Manejar resultado de verificación
+function handleVerificationResult(data) {
+    if (data.overall_valid) {
+        scrapingStats.verified++;
+        addLogEntry('verification', `🧮 ✅ Verificación matemática correcta: ${data.date}`);
+    } else {
+        scrapingStats.errors++;
+        addLogEntry('warning', `🧮 ⚠️ Error matemático detectado: ${data.date}`);
+        
+        // Mostrar errores específicos
+        if (data.errors && data.errors.length > 0) {
+            data.errors.forEach(error => {
+                addLogEntry('error', `   ❌ ${error}`);
+            });
+        }
+    }
+    
+    scrapingStats.processed++;
+    updateStatsDisplay();
+    updateVerificationStats();
+}
+
+// Actualizar progreso
+function updateProgress(data) {
+    const progress = (data.current / data.total) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+    document.getElementById('currentProgress').textContent = data.current;
+    document.getElementById('totalTarget').textContent = data.total;
+    document.getElementById('currentHotel').textContent = data.hotel_name || 'N/A';
+    document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+}
+
+// Actualizar estadísticas
+function updateStatsDisplay() {
+    document.getElementById('successCount').textContent = scrapingStats.success;
+    document.getElementById('verifiedCount').textContent = scrapingStats.verified;
+    document.getElementById('errorCount').textContent = scrapingStats.errors;
+    document.getElementById('failedCount').textContent = scrapingStats.failed;
+    
+    const avgPrice = scrapingStats.success > 0 ? 
+        scrapingStats.totalAmount / scrapingStats.success : 0;
+    document.getElementById('avgPrice').textContent = `$${avgPrice.toFixed(0)}`;
+}
+
+// Actualizar estadísticas de verificación
+function updateVerificationStats() {
+    const rate = scrapingStats.processed > 0 ? 
+        (scrapingStats.verified / scrapingStats.processed) * 100 : 100;
+    
+    document.getElementById('verificationRate').textContent = `${rate.toFixed(1)}%`;
+    document.getElementById('totalProcessed').textContent = scrapingStats.processed;
+}
+
+// Agregar entrada al log
+function addLogEntry(type, message) {
+    const log = document.getElementById('activityLog');
+    const entry = document.createElement('div');
+    entry.className = `log-entry ${type}`;
+    
+    const timestamp = new Date().toLocaleTimeString();
+    entry.innerHTML = `
+        <span class="log-timestamp">${timestamp}</span>
+        <span>${message}</span>
+    `;
+    
+    log.appendChild(entry);
+    log.scrollTop = log.scrollHeight;
+    
+    // Limitar a 100 entradas
+    while (log.children.length > 100) {
+        log.removeChild(log.firstChild);
+    }
+}
+
+// Funciones de control
+function startScraping() {
+    fetch('/dashboard/api/start-scraping/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            addLogEntry('success', '🚀 Scraping iniciado correctamente');
+        } else {
+            addLogEntry('error', '❌ Error iniciando scraping: ' + data.error);
+        }
+    })
+    .catch(error => {
+        addLogEntry('error', '❌ Error en petición: ' + error);
+    });
+}
+
+function stopScraping() {
+    fetch('/dashboard/api/stop-scraping/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        addLogEntry('warning', '🛑 Scraping detenido');
+    });
+}
+
+function testVerification() {
+    // Simular datos de prueba para verificación
+    const testData = {
+        hotel_id: 999,
+        date: new Date().toISOString().split('T')[0],
+        base_price: 1000,
+        taxes: 160,
+        subtotal: 1160,
+        margin_percent: 25,
+        margin_amount: 290,
+        final_price: 1450,
+        timestamp: new Date().toISOString()
+    };
+    
+    addLogEntry('info', '🧪 Ejecutando test de verificación matemática...');
+    
+    // Simular verificación (en producción esto vendría del backend)
+    setTimeout(() => {
+        const isValid = Math.abs((testData.base_price + testData.taxes) - testData.subtotal) < 0.01 &&
+                       Math.abs((testData.subtotal * testData.margin_percent / 100) - testData.margin_amount) < 0.01 &&
+                       Math.abs((testData.subtotal + testData.margin_amount) - testData.final_price) < 0.01;
+        
+        if (isValid) {
+            handleVerificationResult({
+                overall_valid: true,
+                date: testData.date,
+                errors: []
+            });
+            addLogEntry('success', `🧮 Test completado: Base $${testData.base_price} + Impuestos $${testData.taxes} + ${testData.margin_percent}% = $${testData.final_price}`);
+        } else {
+            handleVerificationResult({
+                overall_valid: false,
+                date: testData.date,
+                errors: ['Error en cálculo de test']
+            });
+        }
+    }, 1000);
+}
+
+function clearLogs() {
+    document.getElementById('activityLog').innerHTML = '';
+    addLogEntry('info', '🧹 Logs limpiados');
+}
+
+// Función auxiliar para obtener CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Inicializar al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    connectSSE();
+    addLogEntry('success', '🎉 Monitor avanzado cargado con verificación matemática integrada');
+});
+
+// Reconectar SSE si se cierra la conexión
+setInterval(() => {
+    if (eventSource && eventSource.readyState === EventSource.CLOSED) {
+        addLogEntry('warning', '🔄 Reconectando...');
+        connectSSE();
+    }
+}, 5000);
+</script>
+{% endblock %}

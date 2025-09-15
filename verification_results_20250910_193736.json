@@ -1,0 +1,494 @@
+{
+  "start_time": "2025-09-10T19:37:36.269601",
+  "hotels_verified": 1,
+  "successful_verifications": 1,
+  "failed_verifications": 0,
+  "total_prices_found": 20,
+  "total_dates_expected": 20,
+  "overall_coverage": 100.0,
+  "hotel_results": [
+    {
+      "success": true,
+      "hotel_name": "PARK INN MAZATLAN",
+      "property_id": "9355",
+      "room_type_id": "1001",
+      "expected_dates": 20,
+      "found_prices": 20,
+      "prices": [
+        {
+          "date": "2025-10-10",
+          "rate": 212.26,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-11",
+          "rate": 438.1,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-12",
+          "rate": 438.1,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-13",
+          "rate": 377.56,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-14",
+          "rate": 256.64,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-15",
+          "rate": 531.82,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-16",
+          "rate": 570.52,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-17",
+          "rate": 543.22,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-18",
+          "rate": 276.88,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-19",
+          "rate": 290.36,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-20",
+          "rate": 322.34,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-21",
+          "rate": 280.14,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-22",
+          "rate": 301.28,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-23",
+          "rate": 327.68,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-24",
+          "rate": 192.24,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-25",
+          "rate": 233.14,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-26",
+          "rate": 209.0,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-27",
+          "rate": 482.18,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-28",
+          "rate": 323.56,
+          "room_type_id": "1001"
+        },
+        {
+          "date": "2025-10-29",
+          "rate": 272.94,
+          "room_type_id": "1001"
+        }
+      ],
+      "coverage_percentage": 100.0,
+      "date_coverage": [
+        "2025-10-10",
+        "2025-10-11",
+        "2025-10-12",
+        "2025-10-13",
+        "2025-10-14",
+        "2025-10-15",
+        "2025-10-16",
+        "2025-10-17",
+        "2025-10-18",
+        "2025-10-19",
+        "2025-10-20",
+        "2025-10-21",
+        "2025-10-22",
+        "2025-10-23",
+        "2025-10-24",
+        "2025-10-25",
+        "2025-10-26",
+        "2025-10-27",
+        "2025-10-28",
+        "2025-10-29"
+      ],
+      "missing_dates": [],
+      "price_analysis": {
+        "min_rate": 192.24,
+        "max_rate": 570.52,
+        "avg_rate": 344.0,
+        "total_rates": 20
+      }
+    }
+  ],
+  "scraping_results": {
+    "start_time": "2025-09-10T18:56:46.634723",
+    "hotels_processed": 1,
+    "dates_processed": 20,
+    "successful_scrapes": 20,
+    "successful_syncs": 0,
+    "failed_scrapes": 0,
+    "failed_syncs": 20,
+    "results": [
+      {
+        "hotel": {
+          "id": 1,
+          "name": "PARK INN MAZATLAN",
+          "url": "https://www.booking.com/hotel/mx/park-inn-by-radisson-mazatlan.html",
+          "price_percent": 100.0,
+          "otasync_property_id": "9355",
+          "otasync_room_type_id": "1001",
+          "city": "Mazatlán",
+          "country": "México"
+        },
+        "results": [
+          {
+            "date_range": "2025-10-10 - 2025-10-12",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-10",
+              "check_out": "2025-10-12",
+              "original_price": 270.59,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-11 - 2025-10-13",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-11",
+              "check_out": "2025-10-13",
+              "original_price": 173.89,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-12 - 2025-10-14",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-12",
+              "check_out": "2025-10-14",
+              "original_price": 261.52,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-13 - 2025-10-15",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-13",
+              "check_out": "2025-10-15",
+              "original_price": 243.06,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-14 - 2025-10-16",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-14",
+              "check_out": "2025-10-16",
+              "original_price": 189.21,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-15 - 2025-10-17",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-15",
+              "check_out": "2025-10-17",
+              "original_price": 124.72,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-16 - 2025-10-18",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-16",
+              "check_out": "2025-10-18",
+              "original_price": 103.18,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-17 - 2025-10-19",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-17",
+              "check_out": "2025-10-19",
+              "original_price": 179.46,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-18 - 2025-10-20",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-18",
+              "check_out": "2025-10-20",
+              "original_price": 219.28,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-19 - 2025-10-21",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-19",
+              "check_out": "2025-10-21",
+              "original_price": 197.55,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-20 - 2025-10-22",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-20",
+              "check_out": "2025-10-22",
+              "original_price": 101.43,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-21 - 2025-10-23",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-21",
+              "check_out": "2025-10-23",
+              "original_price": 163.94,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-22 - 2025-10-24",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-22",
+              "check_out": "2025-10-24",
+              "original_price": 299.79,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-23 - 2025-10-25",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-23",
+              "check_out": "2025-10-25",
+              "original_price": 179.1,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-24 - 2025-10-26",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-24",
+              "check_out": "2025-10-26",
+              "original_price": 260.16,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-25 - 2025-10-27",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-25",
+              "check_out": "2025-10-27",
+              "original_price": 249.62,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-26 - 2025-10-28",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-26",
+              "check_out": "2025-10-28",
+              "original_price": 271.72,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-27 - 2025-10-29",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-27",
+              "check_out": "2025-10-29",
+              "original_price": 167.01,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-28 - 2025-10-30",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-28",
+              "check_out": "2025-10-30",
+              "original_price": 272.69,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          },
+          {
+            "date_range": "2025-10-29 - 2025-10-31",
+            "scrape_result": {
+              "hotel_name": "PARK INN MAZATLAN",
+              "check_in": "2025-10-29",
+              "check_out": "2025-10-31",
+              "original_price": 197.91,
+              "currency": "EUR",
+              "availability": "disponible",
+              "simulated": true
+            },
+            "sync_result": null,
+            "status": "sync_failed"
+          }
+        ]
+      }
+    ],
+    "total_revenue_original": 4125.83,
+    "total_revenue_with_margin": 0.0,
+    "errors": [
+      "Sync error - PARK INN MAZATLAN 2025-10-10: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-11: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-12: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-13: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-14: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-15: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-16: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-17: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-18: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-19: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-20: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-21: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-22: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-23: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-24: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-25: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-26: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-27: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-28: Sin respuesta",
+      "Sync error - PARK INN MAZATLAN 2025-10-29: Sin respuesta"
+    ],
+    "end_time": "2025-09-10T18:57:31.655613",
+    "elapsed_time_seconds": 45.02,
+    "success_rate_scraping": 100.0,
+    "success_rate_sync": 0.0,
+    "total_margin_earned": -4125.83
+  },
+  "comparison": {
+    "scraping_success_rate": 0.0,
+    "verification_coverage": 100.0,
+    "consistency_check": "pending",
+    "scraping_syncs": 0,
+    "verification_prices": 20,
+    "match_percentage": 0.0
+  },
+  "end_time": "2025-09-10T19:37:36.456901"
+}

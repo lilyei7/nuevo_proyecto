@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Hoteles - Hotel Scraper{% endblock %}
+
+{% block content %}
+<div class="hotels-page">
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h1 class="page-title"><i class="bi bi-building me-2"></i>Gestión de Hoteles</h1>
+                <p class="text-muted small">Listado y acciones sobre los hoteles registrados</p>
+            </div>
+            <div class="col-auto">
+                <a href="{% url 'hotel_create' %}" class="btn btn-primary btn-sm">Nuevo Hotel</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="hotels-grid row g-3">
+        {% if hotels %}
+            {% for hotel in hotels %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="hotel-card card h-100">
+                        <div class="hotel-card-body card-body d-flex flex-column">
+                            <div class="hotel-name mb-1">
+                                {% if hotel.pk %}
+                                    <a href="{% url 'hotel_detail' hotel.pk %}">{{ hotel.name }}</a>
+                                {% else %}
+                                    {{ hotel.name }}
+                                {% endif %}
+                            </div>
+                            <div class="hotel-meta mb-2">
+                                <span class="meta-item text-muted">{{ hotel.created_at|date:"d/m/Y" }}</span>
+                            </div>
+
+                            {% if hotel.description %}
+                                <p class="hotel-description">{{ hotel.description|truncatechars:100 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="hotel-card-actions card-footer bg-transparent">
+                            <div class="btn-group w-100" role="group">
+                                {% if hotel.pk %}
+                                    <a href="{% url 'hotel_detail' hotel.pk %}" class="btn btn-outline-primary btn-sm" title="Ver Detalles"><i class="bi bi-eye"></i></a>
+                                    <a href="{% url 'hotel_update' hotel.pk %}" class="btn btn-outline-secondary btn-sm" title="Editar"><i class="bi bi-pencil"></i></a>
+
+                                    <form method="post" action="{% url 'hotel_scrape' hotel.pk %}" class="d-inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-outline-success btn-sm" title="Scrape"><i class="bi bi-arrow-repeat"></i></button>
+                                    </form>
+
+                                    {% if hotel.otasync_enabled %}
+                                        <form method="post" action="{% url 'hotel_sync_otasync' hotel.pk %}" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-outline-info btn-sm" title="Sync OTASync"><i class="bi bi-diagram-3"></i></button>
+                                        </form>
+                                    {% endif %}
+                                    
+                                    <a href="{% url 'hotel_delete' hotel.pk %}" class="btn btn-outline-danger btn-sm" title="Eliminar Hotel" onclick="return confirm('¿Estás seguro de que quieres eliminar este hotel?')"><i class="bi bi-trash"></i></a>
+                                {% else %}
+                                    <span class="text-muted small">Acciones no disponibles</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <p class="text-muted">No hay hoteles disponibles.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Page specific CSS/JS -->
+    <link href="{% static 'css/hotels.css' %}" rel="stylesheet">
+    <script src="{% static 'js/hotels.js' %}"></script>
+</div>
+{% endblock %}

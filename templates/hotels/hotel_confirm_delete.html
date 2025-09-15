@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Eliminar Hotel - Hotel Scraper{% endblock %}
+
+{% block content %}
+<div class="hotel-delete-page">
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h1 class="page-title">
+                    <i class="bi bi-trash me-2 text-danger"></i>
+                    Eliminar Hotel
+                </h1>
+                <p class="text-muted">Confirma la eliminación del hotel</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        Confirmación de Eliminación
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <strong>¡Atención!</strong> Esta acción no se puede deshacer.
+                    </div>
+                    
+                    <p class="mb-3">¿Estás seguro de que quieres eliminar el siguiente hotel?</p>
+                    
+                    <div class="hotel-info bg-light p-3 rounded mb-4">
+                        <h6 class="fw-bold text-primary">{{ object.name }}</h6>
+                        {% if object.description %}
+                            <p class="text-muted mb-2">{{ object.description }}</p>
+                        {% endif %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <small class="text-muted">
+                                    <strong>Fuente:</strong> {{ object.source|default:"No especificada" }}
+                                </small>
+                            </div>
+                            <div class="col-sm-6">
+                                <small class="text-muted">
+                                    <strong>Estado:</strong> 
+                                    <span class="badge bg-{{ object.status|yesno:'success,warning,danger' }}">
+                                        {{ object.get_status_display }}
+                                    </span>
+                                </small>
+                            </div>
+                        </div>
+                        {% if object.price_percent %}
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    <strong>Margen de precio:</strong> {{ object.price_percent }}%
+                                </small>
+                            </div>
+                        {% endif %}
+                        {% if object.url %}
+                            <div class="mt-2">
+                                <small class="text-muted">
+                                    <strong>URL:</strong> 
+                                    <a href="{{ object.url }}" target="_blank" class="text-decoration-none">
+                                        {{ object.url|truncatechars:50 }}
+                                        <i class="bi bi-box-arrow-up-right ms-1"></i>
+                                    </a>
+                                </small>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="deletion-consequences">
+                        <h6 class="text-warning">
+                            <i class="bi bi-info-circle me-2"></i>
+                            Consecuencias de la eliminación:
+                        </h6>
+                        <ul class="list-unstyled ps-3">
+                            <li class="mb-1">
+                                <i class="bi bi-check2 text-success me-2"></i>
+                                Se eliminará toda la información del hotel
+                            </li>
+                            <li class="mb-1">
+                                <i class="bi bi-check2 text-success me-2"></i>
+                                Se mantendrán los resultados de scraping históricos
+                            </li>
+                            <li class="mb-1">
+                                <i class="bi bi-check2 text-success me-2"></i>
+                                Se detendrán futuras sincronizaciones con OTASync
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <form method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash me-2"></i>
+                            Sí, Eliminar Hotel
+                        </button>
+                    </form>
+                    <a href="{% url 'hotel_detail' object.pk %}" class="btn btn-secondary ms-2">
+                        <i class="bi bi-arrow-left me-2"></i>
+                        Cancelar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.hotel-delete-page .card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-info {
+    border-left: 4px solid #0d6efd;
+}
+
+.deletion-consequences {
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 0.375rem;
+    padding: 1rem;
+}
+</style>
+{% endblock %}
