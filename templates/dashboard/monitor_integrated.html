@@ -204,7 +204,7 @@
             <div class="monitor-card">
                 <div class="controls-panel">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <button class="control-btn btn-start" onclick="monitor.start()">
                                 ▶️ Iniciar Monitor
                             </button>
@@ -218,30 +218,42 @@
                                 📥 Exportar
                             </button>
                         </div>
-                        <div class="col-md-4">
-                            <select id="log-level-filter" class="form-select" onchange="monitor.setLogFilter(this.value)">
-                                <option value="">Todos los niveles</option>
-                                <option value="DEBUG">Debug</option>
-                                <option value="INFO">Info</option>
-                                <option value="WARNING">Warning</option>
-                                <option value="ERROR">Error</option>
-                            </select>
+                        <div class="col-md-6">
+                            <button class="control-btn btn-scraping-start" onclick="monitor.startScraping()" style="background: #28a745; color: white;">
+                                🚀 Iniciar Scraping
+                            </button>
+                            <button class="control-btn btn-scraping-stop" onclick="monitor.stopScraping()" style="background: #dc3545; color: white;">
+                                🛑 Detener Scraping
+                            </button>
                         </div>
                     </div>
                     
                     <div class="filter-controls">
-                        <label class="form-check-label me-3">
-                            <input type="checkbox" class="form-check-input" id="auto-scroll" checked>
-                            Auto-scroll
-                        </label>
-                        <label class="form-check-label me-3">
-                            <input type="checkbox" class="form-check-input" id="show-timestamps" checked>
-                            Mostrar timestamps
-                        </label>
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" id="show-modules" checked>
-                            Mostrar módulos
-                        </label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select id="log-level-filter" class="form-select" onchange="monitor.setLogFilter(this.value)">
+                                    <option value="">Todos los niveles</option>
+                                    <option value="DEBUG">Debug</option>
+                                    <option value="INFO">Info</option>
+                                    <option value="WARNING">Warning</option>
+                                    <option value="ERROR">Error</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-check-label me-3">
+                                    <input type="checkbox" class="form-check-input" id="auto-scroll" checked>
+                                    Auto-scroll
+                                </label>
+                                <label class="form-check-label me-3">
+                                    <input type="checkbox" class="form-check-input" id="show-timestamps" checked>
+                                    Mostrar timestamps
+                                </label>
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" id="show-modules" checked>
+                                    Mostrar módulos
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -565,6 +577,63 @@
                 URL.revokeObjectURL(url);
                 
                 this.addSystemLog('Logs exportados correctamente', 'success');
+            }
+            
+            // Nuevas funciones para control de scraping
+            startScraping() {
+                if (!confirm('¿Iniciar scraping de todos los hoteles activos?')) {
+                    return;
+                }
+                
+                this.addSystemLog('Iniciando solicitud de scraping...', 'info');
+                
+                fetch('/dashboard/api/start-scraping/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': this.getCSRFToken()
+                    },
+                    body: 'type=manual'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        this.addSystemLog(`✅ ${data.message}`, 'success');
+                        this.addSystemLog(`🎯 Procesando ${data.hotel_count} hoteles`, 'info');
+                    } else {
+                        this.addSystemLog(`❌ Error: ${data.error}`, 'error');
+                    }
+                })
+                .catch(error => {
+                    this.addSystemLog(`💥 Error de conexión: ${error.message}`, 'error');
+                });
+            }
+            
+            stopScraping() {
+                if (!confirm('¿Detener el scraping en progreso?')) {
+                    return;
+                }
+                
+                this.addSystemLog('Deteniendo scraping...', 'warning');
+                
+                fetch('/dashboard/api/stop-scraping/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': this.getCSRFToken()
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        this.addSystemLog(`⏹️ ${data.message}`, 'warning');
+                    } else {
+                        this.addSystemLog(`❌ Error: ${data.error}`, 'error');
+                    }
+                })
+                .catch(error => {
+                    this.addSystemLog(`💥 Error de conexión: ${error.message}`, 'error');
+                });
             }
             
             getCSRFToken() {

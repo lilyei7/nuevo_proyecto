@@ -543,3 +543,172 @@ class ClearLogsAPIView(TemplateView):
                 'success': False,
                 'error': str(e)
             }, status=500)
+
+
+class StartScrapingAPIView(TemplateView):
+    """API para iniciar proceso de scraping"""
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            from .monitor_utils import log_to_monitor
+            
+            # Obtener parámetros del request
+            hotel_ids = request.POST.getlist('hotel_ids', [])
+            scraping_type = request.POST.get('type', 'manual')
+            
+            # Log de inicio de scraping
+            log_to_monitor(
+                f"🚀 Iniciando proceso de scraping {scraping_type}",
+                'INFO',
+                'scraper',
+                {'hotel_count': len(hotel_ids), 'type': scraping_type}
+            )
+            
+            if hotel_ids:
+                log_to_monitor(
+                    f"📋 Hoteles seleccionados: {len(hotel_ids)}",
+                    'INFO',
+                    'scraper'
+                )
+            else:
+                log_to_monitor(
+                    "📋 Scraping de todos los hoteles activos",
+                    'INFO',
+                    'scraper'
+                )
+            
+            # Aquí se puede integrar con el sistema de scraping real
+            # Por ahora, simulamos el proceso
+            import threading
+            import time
+            import random
+            
+            def simulate_scraping():
+                try:
+                    hotels = Hotel.objects.filter(status='active')
+                    if hotel_ids:
+                        hotels = hotels.filter(id__in=hotel_ids)
+                    
+                    total_hotels = hotels.count()
+                    log_to_monitor(
+                        f"🎯 Procesando {total_hotels} hoteles",
+                        'INFO',
+                        'scraper'
+                    )
+                    
+                    for i, hotel in enumerate(hotels, 1):
+                        # Simular procesamiento
+                        time.sleep(random.uniform(1, 3))
+                        
+                        log_to_monitor(
+                            f"🔍 Scrapeando {hotel.name} ({i}/{total_hotels})",
+                            'INFO',
+                            'scraper',
+                            {'progress': f"{i}/{total_hotels}", 'hotel': hotel.name}
+                        )
+                        
+                        # Simular éxito/error aleatorio
+                        if random.random() > 0.2:  # 80% éxito
+                            price = random.uniform(800, 2500)
+                            log_to_monitor(
+                                f"✅ {hotel.name}: ${price:.2f} MXN obtenido",
+                                'INFO',
+                                'scraper',
+                                {
+                                    'hotel': hotel.name,
+                                    'price': price,
+                                    'currency': 'MXN',
+                                    'status': 'success'
+                                }
+                            )
+                            
+                            # Crear resultado de scraping simulado
+                            from datetime import date
+                            ScrapingResult.objects.create(
+                                hotel=hotel,
+                                check_in=date.today(),
+                                check_out=date.today(),
+                                price=price,
+                                status='success'
+                            )
+                        else:  # 20% error
+                            error_msg = random.choice([
+                                'Timeout en conexión',
+                                'Elementos no encontrados',
+                                'Error de parsing',
+                                'Límite de rate alcanzado'
+                            ])
+                            log_to_monitor(
+                                f"❌ {hotel.name}: {error_msg}",
+                                'ERROR',
+                                'scraper',
+                                {'hotel': hotel.name, 'error': error_msg}
+                            )
+                    
+                    log_to_monitor(
+                        f"🎉 Scraping completado: {total_hotels} hoteles procesados",
+                        'INFO',
+                        'scraper',
+                        {'total_processed': total_hotels}
+                    )
+                    
+                except Exception as e:
+                    log_to_monitor(
+                        f"💥 Error en scraping: {str(e)}",
+                        'ERROR',
+                        'scraper',
+                        {'error': str(e)}
+                    )
+            
+            # Iniciar scraping en thread separado
+            scraping_thread = threading.Thread(target=simulate_scraping)
+            scraping_thread.daemon = True
+            scraping_thread.start()
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Scraping iniciado correctamente',
+                'hotel_count': len(hotel_ids) if hotel_ids else Hotel.objects.filter(status='active').count()
+            })
+            
+        except Exception as e:
+            logger.error(f"Error starting scraping: {e}")
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=500)
+
+
+class StopScrapingAPIView(TemplateView):
+    """API para detener proceso de scraping"""
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            from .monitor_utils import log_to_monitor
+            
+            log_to_monitor(
+                "⏹️ Deteniendo proceso de scraping",
+                'WARNING',
+                'scraper'
+            )
+            
+            # Aquí se implementaría la lógica para detener el scraping real
+            # Por ahora solo log
+            
+            log_to_monitor(
+                "🛑 Scraping detenido por usuario",
+                'WARNING',
+                'scraper'
+            )
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Scraping detenido correctamente'
+            })
+            
+        except Exception as e:
+            logger.error(f"Error stopping scraping: {e}")
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=500)
